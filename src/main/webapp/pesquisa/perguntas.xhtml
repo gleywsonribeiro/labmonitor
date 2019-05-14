@@ -1,0 +1,59 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">Misc</ui:define>
+
+    <ui:define name="content">
+
+        <h:form>
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-lg-6">
+                    <!-- Left colum -->
+                    <div class="card card-w-title">
+
+                        <p:messages autoUpdate="true" closable="true" />
+                        <h1>Cadastro de Perguntas</h1>
+                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank form-group">
+
+                            <p:outputLabel value="Pesquisa" for="pesquisa"/>
+                            <p:selectOneMenu id="pesquisa" value="#{perguntaController.pesquisa}" style="margin-bottom:10px;" converter="pesquisaConverter">
+                                <f:selectItem itemLabel="Selecione"/>
+                                <f:selectItems var="pesquisa" value="#{pesquisaController.pesquisas}" itemLabel="#{pesquisa.descricao}" itemValue="#{pesquisa}"/>
+                            </p:selectOneMenu>
+
+                            <h:panelGroup styleClass="md-inputfield">
+                                <p:inputText id="descricao" value="#{perguntaController.pergunta.descricao}" required="true" requiredMessage="Pergunta é necessária"/>
+                                <label>Pergunta</label>
+                            </h:panelGroup>
+
+                            <h:panelGroup>
+                                <h4>Invertido</h4>
+                                <p:inputSwitch value="#{perguntaController.pergunta.invertido}"/>
+                            </h:panelGroup>
+                        </p:panelGrid>
+
+                        <p:commandButton id="btnSavePergunta" value="Salvar" icon="ui-icon-disk" action="#{perguntaController.salvar()}" update="@form" />
+
+                    </div>
+                    <div class="card card-w-title">
+                        <h1>Perguntas</h1>
+                        <p:panelGrid columns="1" style="margin-bottom:10px" layout="grid" styleClass="form-group ui-panelgrid-blank">
+                            <p:dataList value="#{perguntaController.perguntas}" var="pergunta" type="ordered">
+                                <f:facet name="header">
+                                    Perguntas
+                                </f:facet>
+                                #{pergunta.descricao}
+                            </p:dataList>
+                        </p:panelGrid>
+                    </div>
+
+                </div>
+            </div>
+        </h:form>    
+    </ui:define>
+
+</ui:composition>
