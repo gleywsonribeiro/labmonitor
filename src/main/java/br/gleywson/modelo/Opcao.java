@@ -83,7 +83,7 @@ public class Opcao implements Serializable {
 
     @Override
     public String toString() {
-        return "br.gleywson.modelo.Opcao[ id=" + id + " ]";
+        return "br.gleywson.modelo.Opcao[ " + descricao + " ]";
     }
     
 }

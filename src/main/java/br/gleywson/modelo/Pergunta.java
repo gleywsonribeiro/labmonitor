@@ -6,7 +6,9 @@
 package br.gleywson.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -37,8 +39,14 @@ public class Pergunta implements Serializable {
     @ManyToOne
     private Pesquisa pesquisa;
     
-    @OneToMany(mappedBy = "pergunta")
+    @OneToMany(mappedBy = "pergunta", cascade = CascadeType.ALL)
     private List<Opcao> opcoes;
+
+    public Pergunta() {
+        this.opcoes = new ArrayList<Opcao>();
+    }
+    
+    
 
     public Long getId() {
         return id;
