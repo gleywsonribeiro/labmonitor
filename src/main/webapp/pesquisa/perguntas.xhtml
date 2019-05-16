@@ -26,16 +26,13 @@
                             </p:selectOneMenu>
 
                             <h:panelGroup styleClass="md-inputfield">
-                                <p:inputText id="descricao" value="#{perguntaController.pergunta.descricao}" required="true" requiredMessage="Pergunta é necessária" onblur="#{perguntaController.geraOptions()}"/>
+                                <p:inputText id="descricao" value="#{perguntaController.pergunta.descricao}" required="true" requiredMessage="Pergunta é necessária" />
                                 <label>Pergunta</label>
                             </h:panelGroup>
 
                             <h:panelGroup>
                                 <h4>Invertido</h4>
-                                <p:inputSwitch value="#{perguntaController.pergunta.invertido}" >
-                                    <p:ajax listener="#{perguntaController.geraOptions()}" update="form"/>
-                                </p:inputSwitch>
-
+                                <p:inputSwitch value="#{perguntaController.pergunta.invertido}" />
                             </h:panelGroup>
 
                             <h4>Qualificador</h4>
@@ -44,29 +41,30 @@
                                 <f:selectItems var="qualificador" value="#{perguntaController.listaQualificadores()}" itemLabel="#{qualificador.descricao}" itemValue="#{qualificador}"/>
                             </p:selectOneMenu>
 
-                            <h:panelGroup id="insereOpcao">
+<!--                            <h:panelGroup id="insereOpcao">
                                 <p:panelGrid columns="3">
                                     <h:panelGroup styleClass="md-inputfield">
-                                        <p:inputText value="#{perguntaController.opcao.descricao}"/>
+                                        <p:inputText value="{perguntaController.opcao.descricao}"/>
                                         <label>Opção</label>
                                     </h:panelGroup>
-                                    
+
                                     <h:panelGroup styleClass="md-inputfield">
-                                        <p:spinner value="#{perguntaController.opcao.peso}" max="4" min="0"/>
+                                        <p:spinner value="{perguntaController.opcao.peso}" max="4" min="0"/>
                                         <label>Peso</label>
                                     </h:panelGroup>
-                                    
-                                    <p:commandButton id="inserir" action="#{perguntaController.insereOpcao()}" icon="ui-icon-add" styleClass="teal-btn" update="form"/>
+
+                                    <p:commandButton id="inserir" action="{perguntaController.insereOpcao()}" icon="ui-icon-add" styleClass="teal-btn" update="form"/>
                                 </p:panelGrid>
-                            </h:panelGroup>
+                            </h:panelGroup>-->
 
 
-                            <p:dataList value="#{perguntaController.pergunta.opcoes}" var="op" id="listaOpcoes" rendered="#{not empty perguntaController.pergunta.opcoes}">
+<!--                            <p:dataList value="{perguntaController.pergunta.opcoes}" var="op" id="listaOpcoes">
+                                rendered="#"
                                 <f:facet name="header">
                                     Opções
                                 </f:facet>
-                                #{op.descricao} - #{op.peso}
-                            </p:dataList>
+                                {op.descricao} - {op.peso} 
+                            </p:dataList>-->
 
                         </p:panelGrid>
 

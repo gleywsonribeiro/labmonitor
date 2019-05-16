@@ -14,14 +14,6 @@
                 <div class="ui-g-12 ui-lg-6">
                     <!-- Left colum -->
                     <div class="card card-w-title">
-                        <p:toolbar id="tb" style="margin-top: 20px">
-                            <f:facet name="left">
-                                <p:commandButton value="Novo" icon="fa fa-file" action="#" process="@this" update="@form"/> <!--outcome="/produtos/CadastroProduto"-->
-                            </f:facet>
-                            <f:facet name="right">
-                                <p:commandButton value="Pesquisar" icon="fa fa-search" action="#" process="@this"/>
-                            </f:facet>
-                        </p:toolbar>
                         <p:messages autoUpdate="true" closable="true" />
                         <h1>Cadastro de Pesquisa</h1>
                         <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank form-group">
@@ -47,13 +39,10 @@
                 </div>
                 <div class="ui-g-12 ui-lg-6">
                     <!-- Right colum -->
-                    <div class="card">
-                        <h1>Clock</h1>
-                        <p:clock />
-                    </div>
+
                 </div>
             </div>
-            <p:sticky target="tb" />
+            
         </h:form>    
     </ui:define>
 

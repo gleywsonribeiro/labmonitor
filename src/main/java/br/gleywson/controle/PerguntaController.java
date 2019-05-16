@@ -45,6 +45,9 @@ public class PerguntaController {
     }
 
     public void salvar() {
+        
+        geraOptions();
+        
         pergunta.setPesquisa(pesquisa);
         if (pergunta.getId() == null) {
             perguntaFacade.create(pergunta);
@@ -56,6 +59,7 @@ public class PerguntaController {
         pergunta = new Pergunta();
     }
 
+    //não esta sendo usado por enquanto
     public void insereOpcao() {
         opcao.setPergunta(pergunta);
         pergunta.getOpcoes().add(opcao);
