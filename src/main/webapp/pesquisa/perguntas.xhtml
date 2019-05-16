@@ -38,7 +38,7 @@
                             <h4>Qualificador</h4>
                             <p:selectOneMenu id="qualificador" value="#{perguntaController.pergunta.qualificador}" style="margin-bottom:10px;">
                                 <f:selectItem itemLabel="Selecione"/>
-                                <f:selectItems var="qualificador" value="#{perguntaController.listaQualificadores()}" itemLabel="#{qualificador.descricao}" itemValue="#{qualificador}"/>
+                                <f:selectItems var="qualificador" value="#{perguntaController.listaQualificadores()}" itemLabel="#{qualificador} - #{qualificador.descricao}" itemValue="#{qualificador}"/>
                             </p:selectOneMenu>
 
 <!--                            <h:panelGroup id="insereOpcao">
