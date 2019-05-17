@@ -20,23 +20,24 @@
                         <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank form-group">
 
                             <h4>Pesquisa</h4>
-                            <p:selectOneMenu id="pesquisa" value="#{perguntaController.pesquisa}" style="margin-bottom:10px;" converter="pesquisaConverter">
-                                <f:selectItem itemLabel="Selecione"/>
-                                <f:selectItems var="pesquisa" value="#{pesquisaController.pesquisas}" itemLabel="#{pesquisa.descricao}" itemValue="#{pesquisa}"/>
-                            </p:selectOneMenu>
+                                <p:selectOneMenu id="pesquisa" value="#{perguntaController.pesquisa}" style="margin-bottom:10px;"
+                                                 required="true" requiredMessage="Escolha uma pesquisa" converter="pesquisaConverter">
+                                    <f:selectItem itemLabel="Selecione"/>
+                                    <f:selectItems var="pesquisa" value="#{pesquisaController.pesquisas}" itemLabel="#{pesquisa.descricao}" itemValue="#{pesquisa}"/>
+                                </p:selectOneMenu>
 
-                            <h:panelGroup styleClass="md-inputfield">
-                                <p:inputText id="descricao" value="#{perguntaController.pergunta.descricao}" required="true" requiredMessage="Pergunta é necessária" />
-                                <label>Pergunta</label>
-                            </h:panelGroup>
+                                <h:panelGroup styleClass="md-inputfield">
+                                    <p:inputText id="descricao" value="#{perguntaController.pergunta.descricao}" required="true" requiredMessage="Pergunta é necessária" />
+                                    <label>Pergunta</label>
+                                </h:panelGroup>
 
-                            <h4>Tipo</h4>
-                            <p:selectOneRadio id="tipo" value="#{perguntaController.pergunta.tipo}" layout="responsive" columns="2">
-                                <f:selectItems value="#{perguntaController.listaTipos()}" var="tipo" itemLabel="#{tipo.descricao}" itemValue="#{tipo}"/>
-                                
-                            </p:selectOneRadio>
+                                <h4>Tipo: </h4>
+                                <p:selectOneRadio id="tipo" value="#{perguntaController.pergunta.tipo}" layout="responsive" columns="2">
+                                    <f:selectItems value="#{perguntaController.listaTipos()}" var="tipo" itemLabel="#{tipo.descricao}" itemValue="#{tipo}"/>
+                                    <p:ajax event="change" process="@this" update="form" immediate="true"/>
+                                </p:selectOneRadio>
 
-                            <h:panelGroup rendered="#{perguntaController.pergunta.tipo eq 'AUTOMATICO'}">
+                            <h:panelGroup id="iri" rendered="#{perguntaController.pergunta.tipo eq 'AUTOMATICO'}">
                                 <h:panelGroup>
                                     <h4>Invertido</h4>
                                     <p:inputSwitch value="#{perguntaController.pergunta.invertido}" />
@@ -49,36 +50,36 @@
                                 </p:selectOneMenu>
                             </h:panelGroup>
 
-                            <h:panelGroup rendered="#{perguntaController.pergunta.tipo eq 'NORMAL'}">
+                            <h:panelGroup id="opcoes" rendered="#{perguntaController.pergunta.tipo eq 'NORMAL'}">
                                 <h:panelGroup id="insereOpcao">
                                     <p:panelGrid columns="3">
                                         <h:panelGroup styleClass="md-inputfield">
-                                            <p:inputText value="{perguntaController.opcao.descricao}"/>
+                                            <p:inputText value="#{perguntaController.opcao.descricao}" required="true" requiredMessage="Digite uma opção"/>
                                             <label>Opção</label>
                                         </h:panelGroup>
 
                                         <h:panelGroup styleClass="md-inputfield">
-                                            <p:spinner value="{perguntaController.opcao.peso}" max="4" min="0"/>
+                                            <p:spinner value="#{perguntaController.opcao.peso}" max="4" min="0"/>
                                             <label>Peso</label>
                                         </h:panelGroup>
 
-                                        <p:commandButton id="inserir" action="{perguntaController.insereOpcao()}" icon="ui-icon-add" styleClass="teal-btn" update="form"/>
+                                        <p:commandButton id="inserir" action="#{perguntaController.insereOpcao()}" icon="ui-icon-add" styleClass="teal-btn" update="form"/>
                                     </p:panelGrid>
                                 </h:panelGroup>
 
 
-                                <p:dataList value="{perguntaController.pergunta.opcoes}" var="op" id="listaOpcoes">
-                                    rendered="#"
+                                <p:dataList value="#{perguntaController.pergunta.opcoes}" var="op" id="listaOpcoes">
                                     <f:facet name="header">
                                         Opções
                                     </f:facet>
-                                    {op.descricao} - {op.peso} 
+                                    #{op.descricao}
                                 </p:dataList>
                             </h:panelGroup>
 
                         </p:panelGrid>
 
-                        <p:commandButton id="btnSavePergunta" value="Salvar" icon="fa fa-save" styleClass="red-btn" action="#{perguntaController.salvar()}" update="@form"/>
+                        <p:commandButton id="btnSavePergunta" value="Salvar" icon="fa fa-save" styleClass="red-btn"
+                                         process="@this pesquisa descricao" action="#{perguntaController.salvar()}" update="@form"/>
 
                     </div>
                     <div class="card card-w-title">

@@ -47,6 +47,7 @@ public class Pergunta implements Serializable {
     private List<Opcao> opcoes;
 
     public Pergunta() {
+        this.tipo = Tipo.NORMAL;
         this.opcoes = new ArrayList<Opcao>();
     }
     

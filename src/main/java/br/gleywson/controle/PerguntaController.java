@@ -34,21 +34,30 @@ public class PerguntaController {
     private Opcao opcao;
     private List<Pergunta> perguntas;
 
-    private List<String> options = Arrays.asList("A", "B", "C", "D", "E");
+    private final List<String> options;
 
     @EJB
     private PerguntaFacade perguntaFacade;
 
     public PerguntaController() {
+        this.options = Arrays.asList(
+                "A - Não me descreve bem",
+                "B - Não me descreve",
+                "C - Sou neutro",
+                "D - Me descreve",
+                "E - Me descreve muito bem"
+        );
 //        pesquisa = new Pesquisa();
         pergunta = new Pergunta();
         opcao = new Opcao();
     }
 
     public void salvar() {
-        
-        geraOptions();
-        
+
+        if (pergunta.getTipo() == Tipo.AUTOMATICO) {
+            geraOptions();
+        }
+
         pergunta.setPesquisa(pesquisa);
         if (pergunta.getId() == null) {
             perguntaFacade.create(pergunta);
@@ -103,7 +112,7 @@ public class PerguntaController {
     public Qualificador[] listaQualificadores() {
         return Qualificador.values();
     }
-    
+
     public Tipo[] listaTipos() {
         return Tipo.values();
     }
@@ -111,7 +120,7 @@ public class PerguntaController {
     public void geraOptions() {
         //limpa a lista de opcoes antes
         pergunta.getOpcoes().clear();
-        
+
         if (pergunta.isInvertido()) {
             List temp = options;
             Collections.reverse(temp);
@@ -121,11 +130,11 @@ public class PerguntaController {
                 o.setPeso(i);
                 o.setPergunta(pergunta);
                 pergunta.getOpcoes().add(o);
-                
+
             }
         } else {
             for (int i = 0; i < options.size(); i++) {
-               Opcao o = new Opcao();
+                Opcao o = new Opcao();
                 o.setDescricao(options.get(i));
                 o.setPeso(i);
                 o.setPergunta(pergunta);
