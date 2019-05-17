@@ -33,8 +33,12 @@ public class Pergunta implements Serializable {
     private Long id;
     private String descricao;
     private boolean invertido;
+    
     @Enumerated(EnumType.STRING)
     private Qualificador qualificador; 
+    
+    @Enumerated(EnumType.STRING)
+    private Tipo tipo;
     
     @ManyToOne
     private Pesquisa pesquisa;
@@ -78,6 +82,14 @@ public class Pergunta implements Serializable {
 
     public void setQualificador(Qualificador qualificador) {
         this.qualificador = qualificador;
+    }
+
+    public Tipo getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
     }
 
     public Pesquisa getPesquisa() {

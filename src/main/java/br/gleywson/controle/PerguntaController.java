@@ -10,6 +10,7 @@ import br.gleywson.modelo.Opcao;
 import br.gleywson.modelo.Pergunta;
 import br.gleywson.modelo.Pesquisa;
 import br.gleywson.modelo.Qualificador;
+import br.gleywson.modelo.Tipo;
 import br.gleywson.modelo.dao.PerguntaFacade;
 import java.util.Arrays;
 import java.util.Collection;
@@ -101,6 +102,10 @@ public class PerguntaController {
 
     public Qualificador[] listaQualificadores() {
         return Qualificador.values();
+    }
+    
+    public Tipo[] listaTipos() {
+        return Tipo.values();
     }
 
     public void geraOptions() {

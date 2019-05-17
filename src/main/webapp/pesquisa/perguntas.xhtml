@@ -30,41 +30,51 @@
                                 <label>Pergunta</label>
                             </h:panelGroup>
 
-                            <h:panelGroup>
-                                <h4>Invertido</h4>
-                                <p:inputSwitch value="#{perguntaController.pergunta.invertido}" />
+                            <h4>Tipo</h4>
+                            <p:selectOneRadio id="tipo" value="#{perguntaController.pergunta.tipo}" layout="responsive" columns="2">
+                                <f:selectItems value="#{perguntaController.listaTipos()}" var="tipo" itemLabel="#{tipo.descricao}" itemValue="#{tipo}"/>
+                                
+                            </p:selectOneRadio>
+
+                            <h:panelGroup rendered="#{perguntaController.pergunta.tipo eq 'AUTOMATICO'}">
+                                <h:panelGroup>
+                                    <h4>Invertido</h4>
+                                    <p:inputSwitch value="#{perguntaController.pergunta.invertido}" />
+                                </h:panelGroup>
+
+                                <h4>Qualificador</h4>
+                                <p:selectOneMenu id="qualificador" value="#{perguntaController.pergunta.qualificador}" style="margin-bottom:10px;">
+                                    <f:selectItem itemLabel="Selecione"/>
+                                    <f:selectItems var="qualificador" value="#{perguntaController.listaQualificadores()}" itemLabel="#{qualificador} - #{qualificador.descricao}" itemValue="#{qualificador}"/>
+                                </p:selectOneMenu>
                             </h:panelGroup>
 
-                            <h4>Qualificador</h4>
-                            <p:selectOneMenu id="qualificador" value="#{perguntaController.pergunta.qualificador}" style="margin-bottom:10px;">
-                                <f:selectItem itemLabel="Selecione"/>
-                                <f:selectItems var="qualificador" value="#{perguntaController.listaQualificadores()}" itemLabel="#{qualificador} - #{qualificador.descricao}" itemValue="#{qualificador}"/>
-                            </p:selectOneMenu>
+                            <h:panelGroup rendered="#{perguntaController.pergunta.tipo eq 'NORMAL'}">
+                                <h:panelGroup id="insereOpcao">
+                                    <p:panelGrid columns="3">
+                                        <h:panelGroup styleClass="md-inputfield">
+                                            <p:inputText value="{perguntaController.opcao.descricao}"/>
+                                            <label>Opção</label>
+                                        </h:panelGroup>
 
-<!--                            <h:panelGroup id="insereOpcao">
-                                <p:panelGrid columns="3">
-                                    <h:panelGroup styleClass="md-inputfield">
-                                        <p:inputText value="{perguntaController.opcao.descricao}"/>
-                                        <label>Opção</label>
-                                    </h:panelGroup>
+                                        <h:panelGroup styleClass="md-inputfield">
+                                            <p:spinner value="{perguntaController.opcao.peso}" max="4" min="0"/>
+                                            <label>Peso</label>
+                                        </h:panelGroup>
 
-                                    <h:panelGroup styleClass="md-inputfield">
-                                        <p:spinner value="{perguntaController.opcao.peso}" max="4" min="0"/>
-                                        <label>Peso</label>
-                                    </h:panelGroup>
-
-                                    <p:commandButton id="inserir" action="{perguntaController.insereOpcao()}" icon="ui-icon-add" styleClass="teal-btn" update="form"/>
-                                </p:panelGrid>
-                            </h:panelGroup>-->
+                                        <p:commandButton id="inserir" action="{perguntaController.insereOpcao()}" icon="ui-icon-add" styleClass="teal-btn" update="form"/>
+                                    </p:panelGrid>
+                                </h:panelGroup>
 
 
-<!--                            <p:dataList value="{perguntaController.pergunta.opcoes}" var="op" id="listaOpcoes">
-                                rendered="#"
-                                <f:facet name="header">
-                                    Opções
-                                </f:facet>
-                                {op.descricao} - {op.peso} 
-                            </p:dataList>-->
+                                <p:dataList value="{perguntaController.pergunta.opcoes}" var="op" id="listaOpcoes">
+                                    rendered="#"
+                                    <f:facet name="header">
+                                        Opções
+                                    </f:facet>
+                                    {op.descricao} - {op.peso} 
+                                </p:dataList>
+                            </h:panelGroup>
 
                         </p:panelGrid>
 

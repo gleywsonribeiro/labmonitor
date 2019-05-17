@@ -41,8 +41,6 @@ public class PesquisaController {
             pesquisaFacade.edit(pesquisa);
             JsfUtil.addMessage("Atualizado com sucesso!");
         }
-        
-        
     }
 
     public Pesquisa getPesquisa() {
