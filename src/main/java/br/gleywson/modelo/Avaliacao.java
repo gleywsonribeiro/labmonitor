@@ -7,11 +7,13 @@ package br.gleywson.modelo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
 /**
@@ -20,6 +22,9 @@ import javax.persistence.Temporal;
  */
 @Entity
 public class Avaliacao implements Serializable {
+
+    @OneToMany(mappedBy = "avaliacao")
+    private List<Resposta> respostas;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -32,6 +37,12 @@ public class Avaliacao implements Serializable {
     
     @ManyToOne
     private Pesquisa pesquisa;
+
+    public Avaliacao() {
+        this.dataHora = new Date();
+    }
+    
+    
 
     public Long getId() {
         return id;
@@ -70,6 +81,14 @@ public class Avaliacao implements Serializable {
 
     public void setPesquisa(Pesquisa pesquisa) {
         this.pesquisa = pesquisa;
+    }
+
+    public List<Resposta> getRespostas() {
+        return respostas;
+    }
+
+    public void setRespostas(List<Resposta> respostas) {
+        this.respostas = respostas;
     }
 
     @Override

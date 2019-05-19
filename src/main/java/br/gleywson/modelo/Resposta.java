@@ -28,6 +28,8 @@ public class Resposta implements Serializable {
     private Pergunta pergunta;
     @ManyToOne
     private Opcao opcao;
+    
+    
     @ManyToOne
     private Avaliacao avaliacao;
     

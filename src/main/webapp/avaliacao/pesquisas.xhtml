@@ -22,8 +22,11 @@
                             <p:column headerText="Pesquisa">
                                 <h:outputText value="#{pesquisa.descricao}"/>
                             </p:column>
-                            <p:column>
-                                <p:commandButton icon="fa fa-edit" action="avaliacao?faces-redirect=true" ajax="false"/>
+                            <p:column style="text-align: center">
+                                <p:commandButton icon="fa fa-edit" action="avaliacao?faces-redirect=true">
+                                    <f:setPropertyActionListener target="#{pesquisaController.pesquisa}" value="#{pesquisa}"/>
+                                </p:commandButton>
+                                
                             </p:column>
                         </p:dataTable>
 

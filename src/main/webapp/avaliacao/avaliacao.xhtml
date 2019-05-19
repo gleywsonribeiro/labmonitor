@@ -15,11 +15,19 @@
                     <!-- Left colum -->
                     <div class="card card-w-title">
                         <p:messages autoUpdate="true" closable="true" />
-                        <h1>
-                            <h:outputText value="Pesquisas" />
-                        </h1>
-                        <h3>Avaliação aqui</h3>
+                        <h1>#{pesquisaController.pesquisa.descricao}</h1>
+                        <h5>#{pesquisaController.pesquisa.resumo}</h5>
 
+                        <p:dataList value="#{pesquisaController.pesquisa.perguntas}" var="pergunta" type="ordered" >
+                            #{pergunta.descricao}
+                            <p:selectOneRadio layout="responsive" columns="1">
+                                <f:selectItems value="#{pergunta.opcoes}" var="opcao" itemLabel="#{opcao.descricao}" itemValue="#{opcao}"/>
+                                <p:ajax event="change" listener="#{avaliacaoController.addResposta(opcao)}" />
+                            </p:selectOneRadio>
+                            <br/>
+                            <br/>
+                        </p:dataList>
+                        <p:commandButton value="Finalizar" action="#" icon="fa fa-check-square-o" styleClass="green-btn flat"/>
                     </div>
 
 

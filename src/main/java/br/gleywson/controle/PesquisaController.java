@@ -7,10 +7,12 @@ package br.gleywson.controle;
 
 import br.gleywson.jsf.util.JsfUtil;
 import br.gleywson.modelo.Pesquisa;
+import br.gleywson.modelo.Resposta;
 import br.gleywson.modelo.dao.PesquisaFacade;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 
 /**
@@ -18,16 +20,13 @@ import javax.faces.bean.ViewScoped;
  * @author gleywson
  */
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class PesquisaController {
 
     private Pesquisa pesquisa;
     private List<Pesquisa> pesquisas;
-    
     @EJB
     private PesquisaFacade pesquisaFacade;
-    
-    
     
     public PesquisaController() {
         pesquisa = new Pesquisa();
@@ -52,7 +51,8 @@ public class PesquisaController {
     }
 
     public List<Pesquisa> getPesquisas() {
-        return pesquisaFacade.findAll();
+        this.pesquisas = pesquisaFacade.findAll();
+        return this.pesquisas;
     }
     
     
