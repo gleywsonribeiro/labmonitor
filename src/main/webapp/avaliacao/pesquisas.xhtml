@@ -23,10 +23,9 @@
                                 <h:outputText value="#{pesquisa.descricao}"/>
                             </p:column>
                             <p:column style="text-align: center">
-                                <p:commandButton icon="fa fa-edit" action="avaliacao?faces-redirect=true">
-                                    <f:setPropertyActionListener target="#{pesquisaController.pesquisa}" value="#{pesquisa}"/>
-                                </p:commandButton>
-                                
+                                <h:commandLink value="editar" action="avaliacao">
+                                    <f:param value="#{pesquisa.id}" name="cod_pesquisa"/>
+                                </h:commandLink>
                             </p:column>
                         </p:dataTable>
 

@@ -10,6 +10,7 @@ import br.gleywson.modelo.Pesquisa;
 import br.gleywson.modelo.Resposta;
 import br.gleywson.modelo.dao.PesquisaFacade;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -20,13 +21,14 @@ import javax.faces.bean.ViewScoped;
  * @author gleywson
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class PesquisaController {
 
     private Pesquisa pesquisa;
     private List<Pesquisa> pesquisas;
     @EJB
     private PesquisaFacade pesquisaFacade;
+    
     
     public PesquisaController() {
         pesquisa = new Pesquisa();
