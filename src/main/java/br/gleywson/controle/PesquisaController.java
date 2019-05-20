@@ -7,13 +7,10 @@ package br.gleywson.controle;
 
 import br.gleywson.jsf.util.JsfUtil;
 import br.gleywson.modelo.Pesquisa;
-import br.gleywson.modelo.Resposta;
 import br.gleywson.modelo.dao.PesquisaFacade;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 
 /**
