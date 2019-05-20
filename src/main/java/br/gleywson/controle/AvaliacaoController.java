@@ -5,10 +5,14 @@
  */
 package br.gleywson.controle;
 
+import br.gleywson.jsf.util.JsfUtil;
 import br.gleywson.modelo.Avaliacao;
 import br.gleywson.modelo.Opcao;
 import br.gleywson.modelo.Pesquisa;
+import br.gleywson.modelo.Resposta;
+import br.gleywson.modelo.dao.AvaliacaoFacade;
 import br.gleywson.modelo.dao.PesquisaFacade;
+import br.gleywson.modelo.dao.RespostaFacade;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -29,23 +33,25 @@ public class AvaliacaoController {
     
     private Avaliacao avaliacao;
     private Opcao opcao;
-    private List<Opcao> opcoes;
+    private List<Resposta> respostas;
     
     @EJB
     private PesquisaFacade pesquisaFacade;
+    @EJB
+    private RespostaFacade respostaFacade;
+    @EJB
+    private AvaliacaoFacade avaliacaoFacade;
     
     @PostConstruct
     public void init() {
         String codigo = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("cod_pesquisa");
-        System.out.println("Fui chamado!");
-        System.out.println(codigo);
         pesquisa = pesquisaFacade.find(Long.parseLong(codigo));
     }
     
     public AvaliacaoController() {
         this.avaliacao = new Avaliacao();
         this.opcao = new Opcao();
-        opcoes = new ArrayList<Opcao>();
+        respostas = new ArrayList<Resposta>();
     }
     
     
@@ -74,12 +80,27 @@ public class AvaliacaoController {
         this.pesquisa = pesquisa;
     }
     
-    
-    
     public void addResposta() {
-        
         System.out.println(opcao.getDescricao());
         System.out.println(opcao.getPergunta().getDescricao());
+        
+        Resposta resposta = new Resposta();
+        resposta.setValor(opcao.getPeso());
+        
+        resposta.setOpcao(opcao);
+        resposta.setPergunta(opcao.getPergunta());
+        resposta.setAvaliacao(avaliacao);
+        
+        respostas.add(resposta);
+    }
+    
+    public void salvar() {
+        avaliacao.setPesquisa(pesquisa);
+        avaliacaoFacade.create(avaliacao);
+        for (Resposta resposta : respostas) {
+            respostaFacade.create(resposta);
+        }
+        JsfUtil.addMessage("Pesquisa Realizada com sucesso!");
     }
     
 }
