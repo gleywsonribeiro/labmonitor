@@ -7,6 +7,8 @@ package br.gleywson.controle;
 
 import br.gleywson.modelo.Avaliacao;
 import br.gleywson.modelo.Opcao;
+import java.util.ArrayList;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -19,10 +21,13 @@ import javax.faces.bean.ViewScoped;
 public class AvaliacaoController {
 
     private Avaliacao avaliacao;
-    
+    private Opcao opcao;
+    private List<Opcao> opcoes;
     
     public AvaliacaoController() {
         this.avaliacao = new Avaliacao();
+        this.opcao = new Opcao();
+        opcoes = new ArrayList<Opcao>();
     }
     
     
@@ -34,11 +39,19 @@ public class AvaliacaoController {
     public void setAvaliacao(Avaliacao avaliacao) {
         this.avaliacao = avaliacao;
     }
+
+    public Opcao getOpcao() {
+        return opcao;
+    }
+
+    public void setOpcao(Opcao opcao) {
+        this.opcao = opcao;
+    }
     
-    public void addResposta(Object opcao) {
-        Opcao op = (Opcao) opcao;
-        System.out.println(op.getDescricao());
-        System.out.println(op.getPergunta().getDescricao());
+    public void addResposta() {
+        
+        System.out.println(opcao.getDescricao());
+        System.out.println(opcao.getPergunta().getDescricao());
     }
     
 }

@@ -20,9 +20,9 @@
 
                         <p:dataList value="#{pesquisaController.pesquisa.perguntas}" var="pergunta" type="ordered" >
                             #{pergunta.descricao}
-                            <p:selectOneRadio layout="responsive" columns="1">
+                            <p:selectOneRadio layout="responsive" columns="1" value="#{avaliacaoController.opcao}" converter="opcaoConverter">
                                 <f:selectItems value="#{pergunta.opcoes}" var="opcao" itemLabel="#{opcao.descricao}" itemValue="#{opcao}"/>
-                                <p:ajax event="change" listener="#{avaliacaoController.addResposta(opcao)}" />
+                                <p:ajax event="change" listener="#{avaliacaoController.addResposta}" />
                             </p:selectOneRadio>
                             <br/>
                             <br/>
