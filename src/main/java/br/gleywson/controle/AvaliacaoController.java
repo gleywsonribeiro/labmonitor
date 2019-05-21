@@ -94,13 +94,14 @@ public class AvaliacaoController {
         respostas.add(resposta);
     }
     
-    public void salvar() {
+    public String salvar() {
         avaliacao.setPesquisa(pesquisa);
         avaliacaoFacade.create(avaliacao);
         for (Resposta resposta : respostas) {
             respostaFacade.create(resposta);
         }
         JsfUtil.addMessage("Pesquisa Realizada com sucesso!");
+        return "concluido?faces-redirect=true";
     }
     
 }

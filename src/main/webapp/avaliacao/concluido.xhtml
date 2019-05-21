@@ -16,18 +16,11 @@
                     <div class="card card-w-title">
                         <p:messages autoUpdate="true" closable="true" />
                         <h1>
-                            <h:outputText value="Pesquisas" />
+                            Pesquisa realizada com sucesso!
                         </h1>
-                        <p:dataTable value="#{pesquisaController.pesquisas}" var="pesquisa">
-                            <p:column headerText="Pesquisa">
-                                <h:commandLink value="#{pesquisa.descricao}" action="avaliacao">
-                                    <f:param value="#{pesquisa.id}" name="cod_pesquisa"/>
-                                </h:commandLink>
-                            </p:column>
-                            
-                        </p:dataTable>
-
-
+                        <h:panelGroup>
+                            <p:commandButton value="Realizar novamente" action="pesquisas?faces-redirect=true"/>
+                        </h:panelGroup>
                     </div>
 
 

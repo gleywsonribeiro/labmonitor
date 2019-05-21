@@ -22,7 +22,7 @@
                             #{pergunta.descricao}
                             <p:selectOneRadio layout="responsive" columns="1" value="#{avaliacaoController.opcao}" converter="opcaoConverter">
                                 <f:selectItems value="#{pergunta.opcoes}" var="opcao" itemLabel="#{opcao.descricao}" itemValue="#{opcao}"/>
-                                <p:ajax event="change" listener="#{avaliacaoController.addResposta}" />
+                                <p:ajax event="change" listener="#{avaliacaoController.addResposta}" disabled="true" update="@form"/>
                             </p:selectOneRadio>
                             <br/>
                             <br/>
