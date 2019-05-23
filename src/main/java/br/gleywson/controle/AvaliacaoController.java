@@ -91,7 +91,7 @@ public class AvaliacaoController {
         resposta.setPergunta(opcao.getPergunta());
         resposta.setAvaliacao(avaliacao);
         
-        respostas.add(resposta);
+        addResposta(resposta);
     }
     
     public String salvar() {
@@ -102,6 +102,15 @@ public class AvaliacaoController {
         }
         JsfUtil.addMessage("Pesquisa Realizada com sucesso!");
         return "concluido?faces-redirect=true";
+    }
+    
+    private void addResposta(Resposta resposta) {
+        for (Resposta r : respostas) {
+            if(!r.getPergunta().equals(resposta.getPergunta())) {
+                respostas.add(resposta);
+            }
+        }
+        
     }
     
 }
