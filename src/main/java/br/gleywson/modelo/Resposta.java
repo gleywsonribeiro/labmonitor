@@ -83,21 +83,35 @@ public class Resposta implements Serializable {
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Resposta)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        Resposta other = (Resposta) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Resposta other = (Resposta) obj;
+        if (this.pergunta != other.pergunta && (this.pergunta == null || !this.pergunta.equals(other.pergunta))) {
+            return false;
+        }
+        if (this.opcao != other.opcao && (this.opcao == null || !this.opcao.equals(other.opcao))) {
+            return false;
+        }
+        if (this.avaliacao != other.avaliacao && (this.avaliacao == null || !this.avaliacao.equals(other.avaliacao))) {
             return false;
         }
         return true;
     }
 
+   
+
     @Override
     public String toString() {
         return "br.gleywson.modelo.Resposta[ id=" + id + " ]";
     }
+    
     
 }
