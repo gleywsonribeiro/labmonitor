@@ -14,7 +14,9 @@ import br.gleywson.modelo.dao.AvaliacaoFacade;
 import br.gleywson.modelo.dao.PesquisaFacade;
 import br.gleywson.modelo.dao.RespostaFacade;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -105,6 +107,9 @@ public class AvaliacaoController {
     }
     
     private void addResposta(Resposta resposta) {
+        Set<Resposta> setRespostas = new HashSet<Resposta>();
+        ret
+        
         for (Resposta r : respostas) {
             if(!r.getPergunta().equals(resposta.getPergunta())) {
                 respostas.add(resposta);
