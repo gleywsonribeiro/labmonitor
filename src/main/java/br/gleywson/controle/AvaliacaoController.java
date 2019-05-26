@@ -7,16 +7,15 @@ package br.gleywson.controle;
 
 import br.gleywson.jsf.util.JsfUtil;
 import br.gleywson.modelo.Avaliacao;
-import br.gleywson.modelo.Opcao;
+import br.gleywson.modelo.Pergunta;
 import br.gleywson.modelo.Pesquisa;
 import br.gleywson.modelo.Resposta;
 import br.gleywson.modelo.dao.AvaliacaoFacade;
 import br.gleywson.modelo.dao.PesquisaFacade;
 import br.gleywson.modelo.dao.RespostaFacade;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -31,47 +30,38 @@ import javax.faces.context.FacesContext;
 @ViewScoped
 public class AvaliacaoController {
 
-    Pesquisa pesquisa = new Pesquisa();
-    
+    private Pesquisa pesquisa;
     private Avaliacao avaliacao;
-    private Opcao opcao;
-    private List<Resposta> respostas;
-    
     @EJB
     private PesquisaFacade pesquisaFacade;
-    @EJB
-    private RespostaFacade respostaFacade;
+    
     @EJB
     private AvaliacaoFacade avaliacaoFacade;
-    
+        
+    private List<Resposta> respostas;
+
     @PostConstruct
     public void init() {
         String codigo = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("cod_pesquisa");
         pesquisa = pesquisaFacade.find(Long.parseLong(codigo));
-    }
-    
-    public AvaliacaoController() {
-        this.avaliacao = new Avaliacao();
-        this.opcao = new Opcao();
+        avaliacao = new Avaliacao();
+        avaliacao.setPesquisa(pesquisa);
+        
         respostas = new ArrayList<Resposta>();
-    }
-    
-    
-
-    public Avaliacao getAvaliacao() {
-        return avaliacao;
-    }
-
-    public void setAvaliacao(Avaliacao avaliacao) {
-        this.avaliacao = avaliacao;
-    }
-
-    public Opcao getOpcao() {
-        return opcao;
+        
+        for (Pergunta p : avaliacao.getPesquisa().getPerguntas()) {
+            Resposta resposta = new Resposta();
+            resposta.setAvaliacao(avaliacao);
+            resposta.setPergunta(p);
+            avaliacao.getRespostas().add(resposta);
+//            respostas.add(resposta);
+            
+        }
+        
     }
 
-    public void setOpcao(Opcao opcao) {
-        this.opcao = opcao;
+    public AvaliacaoController() {
+
     }
 
     public Pesquisa getPesquisa() {
@@ -81,41 +71,29 @@ public class AvaliacaoController {
     public void setPesquisa(Pesquisa pesquisa) {
         this.pesquisa = pesquisa;
     }
-    
-    public void addResposta() {
-        System.out.println(opcao.getDescricao());
-        System.out.println(opcao.getPergunta().getDescricao());
-        
-        Resposta resposta = new Resposta();
-        resposta.setValor(opcao.getPeso());
-        
-        resposta.setOpcao(opcao);
-        resposta.setPergunta(opcao.getPergunta());
-        resposta.setAvaliacao(avaliacao);
-        
-        addResposta(resposta);
+
+    public Avaliacao getAvaliacao() {
+        return avaliacao;
     }
-    
+
+    public void setAvaliacao(Avaliacao avaliacao) {
+        this.avaliacao = avaliacao;
+    }
+
+    public List<Resposta> getRespostas() {
+        return respostas;
+    }
+
     public String salvar() {
-        avaliacao.setPesquisa(pesquisa);
-        avaliacaoFacade.create(avaliacao);
-        for (Resposta resposta : respostas) {
-            respostaFacade.create(resposta);
-        }
-        JsfUtil.addMessage("Pesquisa Realizada com sucesso!");
+        avaliacao.setDataHora(new Date());
+       if(avaliacao.getId() == null) {
+           avaliacaoFacade.create(avaliacao);
+       } else {
+           avaliacaoFacade.edit(avaliacao);
+       }
+        JsfUtil.addMessage("salvo com sucesso!");
+        System.out.println("Chamou");
         return "concluido?faces-redirect=true";
-    }
-    
-    private void addResposta(Resposta resposta) {
-        Set<Resposta> setRespostas = new HashSet<Resposta>();
-        ret
-        
-        for (Resposta r : respostas) {
-            if(!r.getPergunta().equals(resposta.getPergunta())) {
-                respostas.add(resposta);
-            }
-        }
-        
     }
     
 }

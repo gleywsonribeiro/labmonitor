@@ -6,8 +6,10 @@
 package br.gleywson.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,7 +25,7 @@ import javax.persistence.Temporal;
 @Entity
 public class Avaliacao implements Serializable {
 
-    @OneToMany(mappedBy = "avaliacao")
+    @OneToMany(mappedBy = "avaliacao", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Resposta> respostas;
 
     private static final long serialVersionUID = 1L;
@@ -40,6 +42,7 @@ public class Avaliacao implements Serializable {
 
     public Avaliacao() {
         this.dataHora = new Date();
+        this.respostas = new ArrayList<Resposta>();
     }
     
     

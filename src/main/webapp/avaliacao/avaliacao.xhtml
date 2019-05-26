@@ -14,15 +14,17 @@
                 <div class="ui-g-12 ui-lg-6">
                     <!-- Left colum -->
                     <div class="card card-w-title">
-                        <p:messages autoUpdate="true" closable="true" />
-                        <h1>#{avaliacaoController.pesquisa.descricao}</h1>
-                        <h5>#{avaliacaoController.pesquisa.resumo}</h5>
+                        <!--<p:messages autoUpdate="true" closable="true" />-->
+                        <p:growl autoUpdate="true" />
+                        <h1>#{avaliacaoController.avaliacao.pesquisa.descricao} (Estamos no teste)</h1>
+                        <h5>#{avaliacaoController.avaliacao.pesquisa.resumo}</h5>
 
-                        <p:dataList value="#{avaliacaoController.pesquisa.perguntas}" var="pergunta" type="ordered" >
-                            #{pergunta.descricao}
-                            <p:selectOneRadio layout="responsive" columns="1" value="#{avaliacaoController.opcao}" converter="opcaoConverter">
-                                <f:selectItems value="#{pergunta.opcoes}" var="opcao" itemLabel="#{opcao.descricao}" itemValue="#{opcao}"/>
-                                <p:ajax event="change" listener="#{avaliacaoController.addResposta}"/>
+                        <p:dataList value="#{avaliacaoController.avaliacao.respostas}" var="resposta" type="ordered" >
+                            #{resposta.pergunta.descricao}
+                            <p:selectOneRadio layout="responsive" columns="1" value="#{resposta.opcao}"
+                                              converter="opcaoConverter" required="true" requiredMessage="Escolha uma opção para cada pergunta">
+                                <f:selectItems value="#{resposta.pergunta.opcoes}" var="opcao" itemLabel="#{opcao.descricao}" itemValue="#{opcao}"/>
+                                <!--<p:ajax event="change" listener="{avaliacaoController.addResposta}"/>-->
                             </p:selectOneRadio>
                             <br/>
                             <br/>
