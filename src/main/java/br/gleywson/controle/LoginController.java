@@ -31,21 +31,13 @@ public class LoginController implements Serializable{
     }
 
     public String login() {
-
         if (usuario.getLogin().equals("admin") && usuario.getSenha().equals("admin")) {
             FacesContext context = FacesContext.getCurrentInstance();
             HttpSession httpSession = (HttpSession) context.getExternalContext().getSession(false);
             //this.usuario = user;
             usuario.setNome("Administrador");
             httpSession.setAttribute("currentUser", usuario);
-            return "dahsboard?faces-redirect=true";
-        } else if (usuario.getLogin().equals("gerente") && usuario.getSenha().equals("Metropolit@no")) {
-            FacesContext context = FacesContext.getCurrentInstance();
-            HttpSession httpSession = (HttpSession) context.getExternalContext().getSession(false);
-            //this.usuario = user;
-            usuario.setNome("Gerente");
-            httpSession.setAttribute("currentUser", usuario);
-            return "dahsboard?faces-redirect=true";
+            return "dashboard?faces-redirect=true";
         } else {
             JsfUtil.addErrorMessage("Usuario ou senha inválidos!");
             return "";
