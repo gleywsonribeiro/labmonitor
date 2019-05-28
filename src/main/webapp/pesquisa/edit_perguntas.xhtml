@@ -14,13 +14,18 @@
                 <div class="ui-g-12 ui-lg-6">
                     <!-- Left colum -->
                     <div class="card card-w-title">
-                        <p:messages autoUpdate="true" closable="true" />
-                        <h1>nome da pesquisa aqui</h1>
+                        <p:growl autoUpdate="true"/>
+                        <h1>#{editPerguntaController.pesquisa.descricao}</h1>
                         
-                        <p:commandButton id="btnSavePesquisa" value="Salvar" icon="ui-icon-disk" action="#{pesquisaController.salvar()}" update="@form" />
+                        <p:dataList value="#{editPerguntaController.pesquisa.perguntas}" var="pergunta" type="ordered">
+                            <p:inplace>
+                                <p:inputText value="#{pergunta.descricao}" />
+                            </p:inplace>
+                        </p:dataList>
+                        
+                        <p:commandButton id="salvar" value="Salvar" icon="ui-icon-disk" action="#{editPerguntaController.salvar()}" update="@form" />
 
                     </div>
-
 
                 </div>
                 <div class="ui-g-12 ui-lg-6">

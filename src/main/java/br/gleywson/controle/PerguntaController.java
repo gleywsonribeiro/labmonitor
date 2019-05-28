@@ -54,12 +54,12 @@ public class PerguntaController {
 
     public void salvar() {
 
-        if (pergunta.getTipo() == Tipo.AUTOMATICO) {
-            geraOptions();
-        }
-
         pergunta.setPesquisa(pesquisa);
         if (pergunta.getId() == null) {
+            if (pergunta.getTipo() == Tipo.AUTOMATICO) {
+                geraOptions();
+            }
+
             perguntaFacade.create(pergunta);
             JsfUtil.addMessage("Salvo");
         } else {

@@ -38,8 +38,22 @@
 
                 </div>
                 <div class="ui-g-12 ui-lg-6">
-                    <!-- Right colum -->
-
+                    <h:form>
+                        <p:dataTable value="#{pesquisaController.pesquisas}" var="pesquisa">
+                            <f:facet name="header">Pesquisas</f:facet>
+                            <p:column headerText="Código">
+                                <h:outputText value="#{pesquisa.id}"/>
+                            </p:column>
+                            <p:column headerText="Descrição">
+                                <h:outputText value="#{pesquisa.descricao}"/>
+                            </p:column>
+                            <p:column style="text-align: center">
+                                <h:link  value="Ajustar" outcome="edit_perguntas">
+                                    <f:param value="#{pesquisa.id}" name="pesquisa_id"/>
+                                </h:link>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
                 </div>
             </div>
 

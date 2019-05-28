@@ -23,10 +23,9 @@ import javax.naming.InitialContext;
 @FacesConverter(value = "opcaoConverter")
 public class OpcaoConverter implements Converter {
 
-    
     private OpcaoFacade repositorio;
-    
-     private OpcaoFacade getFacade() {
+
+    private OpcaoFacade getFacade() {
         try {
             return (OpcaoFacade) new InitialContext().lookup("java:global/template/OpcaoFacade"); //[java:global/template/PerguntaFacade!br.gleywson.modelo.dao.PerguntaFacade, java:global/template/PerguntaFacade]
         } catch (Exception ex) {
