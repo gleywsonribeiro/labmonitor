@@ -26,10 +26,7 @@ public class PerguntaEdicaoController {
     @EJB
     private PesquisaFacade pesquisaFacade;
     
-    public PerguntaEdicaoController() {
-        pesquisa = new Pesquisa();
-        pesquisas = pesquisaFacade.findAll();
-    }
+ 
 
     public Pesquisa getPesquisa() {
         return pesquisa;

@@ -71,11 +71,11 @@
                     <div class="card card-w-title">
                         <h1>Pesquisa</h1>
                         
-<!--                        <p:selectOneMenu value="{perguntaEdicaoController.pesquisa}">
+                        <p:selectOneMenu value="{perguntaEdicaoController.pesquisa}">
                             <f:selectItem itemLabel="Selecione"/>
                             <f:selectItems value="{perguntaEdicaoController.pesquisas}" var="pes" itemLabel="{pes.descricao}" itemValue="{pes}"/>
                             <p:ajax update="perguntas" />
-                        </p:selectOneMenu>-->
+                        </p:selectOneMenu>
                         
                         <p:panelGrid id="perguntas" columns="1" style="margin-bottom:10px" layout="grid" styleClass="form-group ui-panelgrid-blank">
                             <p:dataTable value="#{perguntaEdicaoController.pesquisa.perguntas}" var="perg">
