@@ -19,24 +19,24 @@
                         <h1>Ajuste de Perguntas</h1>
                         <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank form-group">
                             <h:panelGroup styleClass="md-inputfield">
-                                <p:inputText id="descricao" value="#{perguntaController.pergunta.descricao}" required="true" requiredMessage="Pergunta é necessária" />
+                                <p:inputText id="descricao" value="#{perguntaEdicaoController.pergunta.descricao}" required="true" requiredMessage="Pergunta é necessária" />
                                 <label>Pergunta</label>
                             </h:panelGroup>
-                            
-                            <h:panelGroup id="iri" rendered="#{perguntaController.pergunta.tipo eq 'AUTOMATICO'}">
+
+                            <h:panelGroup id="iri">
                                 <h:panelGroup>
                                     <h4>Invertido</h4>
-                                    <p:inputSwitch value="#{perguntaController.pergunta.invertido}" />
+                                    <p:inputSwitch value="#{perguntaEdicaoController.pergunta.invertido}" />
                                 </h:panelGroup>
 
                                 <h4>Qualificador</h4>
-                                <p:selectOneMenu id="qualificador" value="#{perguntaController.pergunta.qualificador}" style="margin-bottom:10px;">
+                                <p:selectOneMenu id="qualificador" value="#{perguntaEdicaoController.pergunta.qualificador}" style="margin-bottom:10px;">
                                     <f:selectItem itemLabel="Selecione"/>
                                     <f:selectItems var="qualificador" value="#{perguntaController.listaQualificadores()}" itemLabel="#{qualificador} - #{qualificador.descricao}" itemValue="#{qualificador}"/>
                                 </p:selectOneMenu>
                             </h:panelGroup>
 
-                            <h:panelGroup id="opcoes" rendered="#{perguntaController.pergunta.tipo eq 'NORMAL'}">
+                            <h:panelGroup id="opcoes">
                                 <h:panelGroup id="insereOpcao">
                                     <p:panelGrid columns="3">
                                         <h:panelGroup styleClass="md-inputfield">
@@ -54,12 +54,17 @@
                                 </h:panelGroup>
 
 
-                                <p:dataList value="#{perguntaController.pergunta.opcoes}" var="op" id="listaOpcoes">
+                                <p:dataTable value="#{perguntaEdicaoController.pergunta.opcoes}" var="op" id="listaOpcoes">
                                     <f:facet name="header">
                                         Opções
                                     </f:facet>
-                                    #{op.descricao}
-                                </p:dataList>
+                                    <p:column headerText="Opção">
+                                        <h:outputText value="#{op.descricao}" />
+                                    </p:column>
+                                    <p:column headerText="Peso">
+                                        <h:outputText value="#{op.peso}" />
+                                    </p:column>
+                                </p:dataTable>
                             </h:panelGroup>
 
                         </p:panelGrid>
@@ -68,29 +73,32 @@
                                          process="@this descricao" action="#{perguntaController.salvar()}" update="@form"/>
 
                     </div>
+
+                </div>
+
+                <div class="ui-g-12 ui-lg-6">
                     <div class="card card-w-title">
                         <h1>Pesquisa</h1>
-                        
-                        <p:selectOneMenu value="{perguntaEdicaoController.pesquisa}">
-                            <f:selectItem itemLabel="Selecione"/>
-                            <f:selectItems value="{perguntaEdicaoController.pesquisas}" var="pes" itemLabel="{pes.descricao}" itemValue="{pes}"/>
+
+                        <p:selectOneMenu value="#{perguntaEdicaoController.pesquisa}" converter="pesquisaConverter">
+                            <f:selectItem itemLabel="Selecione a Pesquisa"/>
+                            <f:selectItems value="#{perguntaEdicaoController.pesquisas}" var="pes" itemLabel="#{pes.descricao}" itemValue="#{pes}"/>
                             <p:ajax update="perguntas" />
                         </p:selectOneMenu>
-                        
+
                         <p:panelGrid id="perguntas" columns="1" style="margin-bottom:10px" layout="grid" styleClass="form-group ui-panelgrid-blank">
                             <p:dataTable value="#{perguntaEdicaoController.pesquisa.perguntas}" var="perg">
                                 <p:column headerText="Pergunta">
-                                    <h:outputText value="#{perg}"/>
+                                    <h:outputText value="#{perg.descricao}"/>
                                 </p:column>
-                                <p:column headerText="Edição">
-                                    <p:commandButton value="editar" icon="fa fa-edit" >
-                                        
+                                <p:column headerText="Edição" style="text-align: center; width: 50px">
+                                    <p:commandButton icon="fa fa-edit" styleClass="teal-btn" process="@this" update="@form">
+                                        <f:setPropertyActionListener value="#{perg}" target="#{perguntaEdicaoController.pergunta}"/>
                                     </p:commandButton>
                                 </p:column>
                             </p:dataTable>
                         </p:panelGrid>
                     </div>
-
                 </div>
             </div>
         </h:form>    

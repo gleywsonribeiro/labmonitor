@@ -5,7 +5,9 @@
  */
 package br.gleywson.controle;
 
+import br.gleywson.modelo.Pergunta;
 import br.gleywson.modelo.Pesquisa;
+import br.gleywson.modelo.dao.PerguntaFacade;
 import br.gleywson.modelo.dao.PesquisaFacade;
 import java.util.List;
 import javax.ejb.EJB;
@@ -23,8 +25,16 @@ public class PerguntaEdicaoController {
     private Pesquisa pesquisa;
     private List<Pesquisa> pesquisas;
     
+    private Pergunta pergunta;
+    
     @EJB
     private PesquisaFacade pesquisaFacade;
+    @EJB
+    private PerguntaFacade perguntaFacade;
+
+    public PerguntaEdicaoController() {
+        pergunta = new Pergunta();
+    }
     
  
 
@@ -40,5 +50,14 @@ public class PerguntaEdicaoController {
         pesquisas = pesquisaFacade.findAll();
         return pesquisas;
     }
+
+    public Pergunta getPergunta() {
+        return pergunta;
+    }
+
+    public void setPergunta(Pergunta pergunta) {
+        this.pergunta = pergunta;
+    }
+    
     
 }
