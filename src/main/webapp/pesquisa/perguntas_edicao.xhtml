@@ -87,7 +87,7 @@
                         </p:selectOneMenu>
 
                         <p:panelGrid id="perguntas" columns="1" style="margin-bottom:10px" layout="grid" styleClass="form-group ui-panelgrid-blank">
-                            <p:dataTable value="#{perguntaEdicaoController.pesquisa.perguntas}" var="perg">
+                            <p:dataTable value="#{perguntaEdicaoController.pesquisa.perguntas}" var="perg"  scrollable="true" scrollHeight="370" >
                                 <p:column headerText="Pergunta">
                                     <h:outputText value="#{perg.descricao}"/>
                                 </p:column>
