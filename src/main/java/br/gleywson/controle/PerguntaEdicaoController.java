@@ -5,6 +5,8 @@
  */
 package br.gleywson.controle;
 
+import br.gleywson.jsf.util.JsfUtil;
+import br.gleywson.modelo.Opcao;
 import br.gleywson.modelo.Pergunta;
 import br.gleywson.modelo.Pesquisa;
 import br.gleywson.modelo.dao.PerguntaFacade;
@@ -24,6 +26,8 @@ public class PerguntaEdicaoController {
     
     private Pesquisa pesquisa;
     private List<Pesquisa> pesquisas;
+    private Opcao opcao;
+    
     
     private Pergunta pergunta;
     
@@ -34,9 +38,19 @@ public class PerguntaEdicaoController {
 
     public PerguntaEdicaoController() {
         pergunta = new Pergunta();
+        opcao = new Opcao();
     }
     
- 
+    public void addOpcao() {
+        opcao.setPergunta(pergunta);
+        pergunta.getOpcoes().add(opcao);
+        opcao = new Opcao();
+    }
+    
+    public void atualizar() {
+        perguntaFacade.edit(pergunta);
+        JsfUtil.addMessage("Pergunta atualizada com sucesso!");
+    }
 
     public Pesquisa getPesquisa() {
         return pesquisa;
@@ -57,6 +71,14 @@ public class PerguntaEdicaoController {
 
     public void setPergunta(Pergunta pergunta) {
         this.pergunta = pergunta;
+    }
+
+    public Opcao getOpcao() {
+        return opcao;
+    }
+
+    public void setOpcao(Opcao opcao) {
+        this.opcao = opcao;
     }
     
     
