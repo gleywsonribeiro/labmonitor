@@ -23,14 +23,13 @@ import javax.faces.bean.ViewScoped;
 @ManagedBean
 @ViewScoped
 public class PerguntaEdicaoController {
-    
+
     private Pesquisa pesquisa;
     private List<Pesquisa> pesquisas;
     private Opcao opcao;
-    
-    
+
     private Pergunta pergunta;
-    
+
     @EJB
     private PesquisaFacade pesquisaFacade;
     @EJB
@@ -40,13 +39,13 @@ public class PerguntaEdicaoController {
         pergunta = new Pergunta();
         opcao = new Opcao();
     }
-    
+
     public void addOpcao() {
         opcao.setPergunta(pergunta);
         pergunta.getOpcoes().add(opcao);
         opcao = new Opcao();
     }
-    
+
     public void atualizar() {
         perguntaFacade.edit(pergunta);
         JsfUtil.addMessage("Pergunta atualizada com sucesso!");
@@ -80,6 +79,5 @@ public class PerguntaEdicaoController {
     public void setOpcao(Opcao opcao) {
         this.opcao = opcao;
     }
-    
-    
+
 }

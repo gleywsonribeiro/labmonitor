@@ -40,11 +40,11 @@
                             <h:panelGroup id="iri" rendered="#{perguntaController.pergunta.tipo eq 'AUTOMATICO'}">
                                 <h:panelGroup>
                                     <h4>Invertido</h4>
-                                    <p:inputSwitch value="#{perguntaEdicaoController.pergunta.invertido}" />
+                                    <p:inputSwitch value="#{perguntaController.pergunta.invertido}" />
                                 </h:panelGroup>
 
                                 <h4>Qualificador</h4>
-                                <p:selectOneMenu id="qualificador" value="#{perguntaEdicaoController.pergunta.qualificador}" style="margin-bottom:10px;">
+                                <p:selectOneMenu id="qualificador" value="#{perguntaController.pergunta.qualificador}" style="margin-bottom:10px;">
                                     <f:selectItem itemLabel="Selecione"/>
                                     <f:selectItems var="qualificador" value="#{perguntaController.listaQualificadores()}" itemLabel="#{qualificador} - #{qualificador.descricao}" itemValue="#{qualificador}"/>
                                 </p:selectOneMenu>
@@ -79,7 +79,7 @@
                         </p:panelGrid>
 
                         <p:commandButton id="btnSavePergunta" value="Salvar" icon="fa fa-save" styleClass="red-btn"
-                                         process="@this pesquisa descricao" action="#{perguntaController.salvar()}" update="@form"/>
+                                         process="@this pesquisa descricao tipo iri" action="#{perguntaController.salvar()}" update="@form"/>
 
                     </div>
                     <div class="card card-w-title">
