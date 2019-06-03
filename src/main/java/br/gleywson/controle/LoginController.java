@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
  */
 @ManagedBean
 @SessionScoped
-public class LoginController implements Serializable{
+public class LoginController implements Serializable {
 
     private Usuario usuario;
 
@@ -36,6 +36,13 @@ public class LoginController implements Serializable{
             HttpSession httpSession = (HttpSession) context.getExternalContext().getSession(false);
             //this.usuario = user;
             usuario.setNome("Administrador");
+            httpSession.setAttribute("currentUser", usuario);
+            return "dashboard?faces-redirect=true";
+        } else if (usuario.getLogin().equals("visitante") && usuario.getSenha().equals("123")) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            HttpSession httpSession = (HttpSession) context.getExternalContext().getSession(false);
+            //this.usuario = user;
+            usuario.setNome("Visitante");
             httpSession.setAttribute("currentUser", usuario);
             return "dashboard?faces-redirect=true";
         } else {
@@ -64,6 +71,14 @@ public class LoginController implements Serializable{
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+    
+    public String saudacao() {
+        return "Olá " + usuario.getNome();
+    }
+    
+    public boolean isAdministrador() {
+        return usuario.getLogin().equals("admin");
     }
 
 }
