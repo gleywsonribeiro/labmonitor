@@ -36,10 +36,45 @@
                 }
             }
             //]]>  
+            function skinPie() {
+                this.cfg.shadow = false;
+                this.cfg.title = '';
+                this.cfg.seriesColors = ['#03A9F4', '#E91E63', '#4CAF50', '#FFC107'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#ffffff',
+                    gridLineColor: '#F5F5F5',
+                    shadow: false
+                };
+                this.cfg.axesDefaults = {
+                    rendererOptions: {
+                        textColor: '#666F77',
+                    }
+                };
+                this.cfg.seriesDefaults = {
+                    renderer: $.jqplot.PieRenderer,
+                    shadow: false,
+                    lineWidth: 1,
+                    markerOptions: {
+                        shadow: false,
+                        size: 7,
+                        style: 'circle'
+                    }
+                }
+            }
         </script>
         <style type="text/css">
             .main-content {
                 padding: 0;
+            }
+            .jqplot-xaxis-label, .jqplot-yaxis-label, .jqplot-y2axis-label, .jqplot-x2axis-label {
+                color: #757575; 
+            }
+
+            table.jqplot-table-legend {
+                background-color: #ffffff;
+                color: #757575;
+                border-color: #bdbdbd;
             }
         </style>
     </ui:define>
@@ -48,7 +83,7 @@
         <div class="ui-g dashboard">
             <p:growl autoUpdate="true"/>
             <div class="ui-g-12 ui-md-4">
-                <div class="card overview">
+                <div class="card">
                     <h3 style="padding: 20px">
                         <h:outputText value="#{loginController.saudacao()}"/>
                         <p>
@@ -56,6 +91,18 @@
                         </p>
                     </h3>
                 </div>
+
+                <div class="card">
+                    <h1 class="centerText">Análise de Dados</h1>
+                </div>
+
+                <ui:repeat value="#{dashBoardController.graficos}" var="grafico">
+                    <div class="card"> 
+                        <p:chart id="pie" type="pie" model="#{grafico}" responsive="true" />
+                    </div>
+                </ui:repeat>
+
+
             </div>
         </div>
     </ui:define>

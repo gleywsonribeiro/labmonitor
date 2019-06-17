@@ -20,41 +20,32 @@ import javax.persistence.TypedQuery;
  */
 @javax.ejb.Stateless
 public class RespostaFacade extends AbstractFacade<Resposta> {
-    
+
     @PersistenceContext(unitName = "iriPU")
     private EntityManager em;
-    
+
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
     public RespostaFacade() {
         super(Resposta.class);
     }
-    
+
     public List<Object[]> getTotalRespostasPorPergunta(Long idPesquisa) {
-        
-        List<Object[]> resultado = getEntityManager().createNativeQuery("select p.descricao pergunta, o.descricao resposta, count(*) total "
-                + "from resposta r, pesquisa pes, avaliacao av, pergunta p, opcao o "
+
+        Query query = getEntityManager().createNativeQuery("select p.descricao pergunta, o.descricao resposta, count(*) total "
+                + "from resposta r, avaliacao av, pergunta p, opcao o "
                 + "where r.avaliacao_id = av.id "
                 + "and r.pergunta_id = p.id "
                 + "and r.opcao_id = o.id "
+                + "and av.pesquisa_id = " + idPesquisa + " "
                 + "group by p.descricao, o.descricao "
-                + "order by p.descricao").getResultList();
+                + "order by p.descricao");
 
-        for (Object[] linha : resultado) {
-//            String pergunta = (String) linha[0];
-//            String resposta = (String) linha[1];
-//            String total = (String) linha[2];
-//            System.out.println(linha[0] + " -> " + linha[1] + ": " + linha[3]);
-            for (Object object : linha) {
-                System.out.println(object);
-            }
-            System.out.println("------------");
-        }
-        
+        List<Object[]> resultado = query.getResultList();
         return resultado;
     }
-    
+
 }
