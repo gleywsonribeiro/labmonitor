@@ -69,7 +69,7 @@ public class DashBoardController implements Serializable {
         for (PerguntaVariavel pergunta : perguntas) {
             PieChartModel pcm = new PieChartModel();
             pcm.setTitle(pergunta.getPergunta());
-            pcm.setLegendPosition("w");
+            pcm.setLegendPosition("s");
 
             for (RespostaVariavel resposta : pergunta.getRepostas()) {
                 pcm.set(resposta.getResposta(), resposta.getTotal());
@@ -82,7 +82,7 @@ public class DashBoardController implements Serializable {
         List<Object[]> dados = respostaFacade.getTotalEscalaEmpatia(1L);
 
         graficoEmpatia.setTitle("Escala de Fantasia");
-        graficoEmpatia.setLegendPosition("w");
+        graficoEmpatia.setLegendPosition("s");
         graficoEmpatia.setFill(false);
         graficoEmpatia.setShowDataLabels(true);
 
