@@ -28,39 +28,24 @@ public class DashBoardController implements Serializable {
     @EJB
     RespostaFacade respostaFacade;
 
-    private PieChartModel pieChartModel;
-    private List<PieChartModel> graficos = new ArrayList<PieChartModel>();
-    private List<PerguntaVariavel> perguntas = new ArrayList<PerguntaVariavel>();
-    private List<RespostaVariavel> respostas = new ArrayList<RespostaVariavel>();
+    private final List<PieChartModel> graficos = new ArrayList<PieChartModel>();
+    private final List<PieChartModel> graficosEmpatia = new ArrayList<PieChartModel>();
+
+    private final List<PerguntaVariavel> perguntas = new ArrayList<PerguntaVariavel>();
+    private final List<RespostaVariavel> respostas = new ArrayList<RespostaVariavel>();
 
     @PostConstruct
     public void init() {
-        createPieModel();
         createGraficos();
+        createGraficosEmpatia();
     }
 
     public DashBoardController() {
 
     }
 
-    public void emitir() {
-        respostaFacade.getTotalRespostasPorPergunta(1601L);
-    }
-
-    private void createPieModel() {
-        pieChartModel = new PieChartModel();
-
-        pieChartModel.set("Brand 1", 1);
-        pieChartModel.set("Brand 2", 2);
-        pieChartModel.set("Brand 3", 3);
-        pieChartModel.set("Brand 4", 4);
-
-        pieChartModel.setTitle("Simple Pie");
-        pieChartModel.setLegendPosition("w");
-    }
-
     private void createGraficos() {
-        List<Object[]> dados = respostaFacade.getTotalRespostasPorPergunta(102L);
+        List<Object[]> dados = respostaFacade.getTotalRespostasPorPergunta(1L);
 
         for (Object[] dado : dados) {
 //            PieChartModel pcm = new PieChartModel();
@@ -87,29 +72,32 @@ public class DashBoardController implements Serializable {
             PieChartModel pcm = new PieChartModel();
             pcm.setTitle(pergunta.getPergunta());
             pcm.setLegendPosition("w");
-            
+
             for (RespostaVariavel resposta : pergunta.getRepostas()) {
-                //pieChartModel.set("Brand 2", 2);
                 pcm.set(resposta.getResposta(), resposta.getTotal());
             }
             graficos.add(pcm);
         }
     }
 
-    public PieChartModel getPieChartModel() {
-        return pieChartModel;
-    }
+    private void createGraficosEmpatia() {
+        List<Object[]> dados = respostaFacade.getTotalEscalaEmpatia(1L);
+        PieChartModel pcm = new PieChartModel();
+        pcm.setTitle("Escala de Fantasia");
+        pcm.setLegendPosition("w");
+        
+        for (Object[] dado : dados) {
+            pcm.set(dado[0].toString(), Integer.parseInt(dado[1].toString()));
+        }
 
-    public void setPieChartModel(PieChartModel pieChartModel) {
-        this.pieChartModel = pieChartModel;
     }
 
     public List<PieChartModel> getGraficos() {
         return graficos;
     }
 
-    public void setGraficos(List<PieChartModel> graficos) {
-        this.graficos = graficos;
+    public List<PieChartModel> getGraficosEmpatia() {
+        return graficosEmpatia;
     }
 
 }
