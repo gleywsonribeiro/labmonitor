@@ -48,4 +48,19 @@ public class RespostaFacade extends AbstractFacade<Resposta> {
         return resultado;
     }
 
+    public List<Object[]> getTotalEscalaEmpatia(Long idPesquisa) {
+        Query query = getEntityManager().createNativeQuery("select p.qualificador, count(*) "
+                + "from resposta r, avaliacao av, pesquisa pes, pergunta p, opcao o "
+                + "where av.pesquisa_id = pes.id "
+                + "and r.avaliacao_id = av.id "
+                + "and r.opcao_id = o.id "
+                + "and r.pergunta_id = p.id "
+                + "and pes.id = "+idPesquisa+" "
+                + "and p.tipo = 'AUTOMATICO' "
+                + "group by qualificador");
+
+        List<Object[]> resultado = query.getResultList();
+        return resultado;
+    }
+
 }

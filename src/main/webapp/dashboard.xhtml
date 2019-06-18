@@ -82,16 +82,7 @@
     <ui:define name="content">
         <div class="ui-g dashboard">
             <p:growl autoUpdate="true"/>
-            <div class="ui-g-12 ui-md-4">
-                <div class="card">
-                    <h3 style="padding: 20px">
-                        <h:outputText value="#{loginController.saudacao()}"/>
-                        <p>
-                            <p:commandButton value="Testar" action="#{dashBoardController.emitir()}" />
-                        </p>
-                    </h3>
-                </div>
-
+            <div class="ui-g-12 ui-md-6">
                 <div class="card">
                     <h1 class="centerText">Análise de Dados</h1>
                 </div>
@@ -101,8 +92,17 @@
                         <p:chart id="pie" type="pie" model="#{grafico}" responsive="true" />
                     </div>
                 </ui:repeat>
-
-
+            </div>
+            
+            <div class="ui-g-12 ui-md-6">
+                <div class="card">
+                    <h1 class="centerText">Análise de Empatia</h1>
+                </div>
+                <ui:repeat value="#{dashBoardController.graficosEmpatia}" var="grafico">
+                    <div class="card"> 
+                        <p:chart id="pie" type="pie" model="#{grafico}" responsive="true" />
+                    </div>
+                </ui:repeat>
             </div>
         </div>
     </ui:define>
