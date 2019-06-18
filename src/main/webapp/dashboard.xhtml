@@ -93,16 +93,14 @@
                     </div>
                 </ui:repeat>
             </div>
-            
+
             <div class="ui-g-12 ui-md-6">
                 <div class="card">
                     <h1 class="centerText">Análise de Empatia</h1>
                 </div>
-                <ui:repeat value="#{dashBoardController.graficosEmpatia}" var="grafico">
-                    <div class="card"> 
-                        <p:chart id="pie" type="pie" model="#{grafico}" responsive="true" />
-                    </div>
-                </ui:repeat>
+                <div class="card"> 
+                    <p:chart id="pie" type="pie" model="#{dashBoardController.graficoEmpatia}" responsive="true" />
+                </div>
             </div>
         </div>
     </ui:define>

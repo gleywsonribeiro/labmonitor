@@ -40,7 +40,7 @@ public class RespostaFacade extends AbstractFacade<Resposta> {
                 + "where r.avaliacao_id = av.id "
                 + "and r.pergunta_id = p.id "
                 + "and r.opcao_id = o.id "
-                + "and av.pesquisa_id = " + idPesquisa + " "
+                //                + "and av.pesquisa_id = " + idPesquisa + " "
                 + "group by p.descricao, o.descricao "
                 + "order by p.descricao");
 
@@ -49,15 +49,24 @@ public class RespostaFacade extends AbstractFacade<Resposta> {
     }
 
     public List<Object[]> getTotalEscalaEmpatia(Long idPesquisa) {
-        Query query = getEntityManager().createNativeQuery("select p.qualificador, count(*) "
-                + "from resposta r, avaliacao av, pesquisa pes, pergunta p, opcao o "
-                + "where av.pesquisa_id = pes.id "
-                + "and r.avaliacao_id = av.id "
-                + "and r.opcao_id = o.id "
-                + "and r.pergunta_id = p.id "
-                + "and pes.id = "+idPesquisa+" "
-                + "and p.tipo = 'AUTOMATICO' "
-                + "group by qualificador");
+        Query query = getEntityManager().createNativeQuery("select case p.qualificador\n"
+                + "         when 'PT' then\n"
+                + "          'Escala de Tomada de Perspectiva'\n"
+                + "         when 'FS' then\n"
+                + "          'Escala de Fantasia'\n"
+                + "         when 'EC' then\n"
+                + "          'Escala de Consideração Empática'\n"
+                + "         when 'PD' then\n"
+                + "          'Escala de Angústia Pessoal'\n"
+                + "       end escala,\n"
+                + "       sum(o.peso)\n"
+                + "  from resposta r, avaliacao av, pesquisa pes, pergunta p, opcao o\n"
+                + " where av.pesquisa_id = pes.id\n"
+                + "   and r.avaliacao_id = av.id\n"
+                + "   and r.opcao_id = o.id\n"
+                + "   and r.pergunta_id = p.id\n"
+                + "   and p.tipo = 'AUTOMATICO'\n"
+                + " group by qualificador");
 
         List<Object[]> resultado = query.getResultList();
         return resultado;

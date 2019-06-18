@@ -29,7 +29,7 @@ public class DashBoardController implements Serializable {
     RespostaFacade respostaFacade;
 
     private final List<PieChartModel> graficos = new ArrayList<PieChartModel>();
-    private final List<PieChartModel> graficosEmpatia = new ArrayList<PieChartModel>();
+    private final PieChartModel graficoEmpatia = new PieChartModel();
 
     private final List<PerguntaVariavel> perguntas = new ArrayList<PerguntaVariavel>();
     private final List<RespostaVariavel> respostas = new ArrayList<RespostaVariavel>();
@@ -48,8 +48,6 @@ public class DashBoardController implements Serializable {
         List<Object[]> dados = respostaFacade.getTotalRespostasPorPergunta(1L);
 
         for (Object[] dado : dados) {
-//            PieChartModel pcm = new PieChartModel();
-            //RespostaVariavel rv = new RespostaVariavel(dado[0].toString(), dado[1].toString(), 0);
             PerguntaVariavel pv = new PerguntaVariavel(dado[0].toString());
             RespostaVariavel rv = new RespostaVariavel(dado[0].toString(), dado[1].toString(), Integer.parseInt(dado[2].toString()));
 
@@ -82,12 +80,14 @@ public class DashBoardController implements Serializable {
 
     private void createGraficosEmpatia() {
         List<Object[]> dados = respostaFacade.getTotalEscalaEmpatia(1L);
-        PieChartModel pcm = new PieChartModel();
-        pcm.setTitle("Escala de Fantasia");
-        pcm.setLegendPosition("w");
-        
+
+        graficoEmpatia.setTitle("Escala de Fantasia");
+        graficoEmpatia.setLegendPosition("w");
+        graficoEmpatia.setFill(false);
+        graficoEmpatia.setShowDataLabels(true);
+
         for (Object[] dado : dados) {
-            pcm.set(dado[0].toString(), Integer.parseInt(dado[1].toString()));
+            graficoEmpatia.set(dado[0].toString(), Integer.parseInt(dado[1].toString()));
         }
 
     }
@@ -96,8 +96,8 @@ public class DashBoardController implements Serializable {
         return graficos;
     }
 
-    public List<PieChartModel> getGraficosEmpatia() {
-        return graficosEmpatia;
+    public PieChartModel getGraficoEmpatia() {
+        return graficoEmpatia;
     }
 
 }
