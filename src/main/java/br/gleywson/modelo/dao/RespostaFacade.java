@@ -5,14 +5,11 @@
  */
 package br.gleywson.modelo.dao;
 
-import br.gleywson.modelo.Pesquisa;
 import br.gleywson.modelo.Resposta;
-import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 
 /**
  *
