@@ -9,6 +9,7 @@ import br.gleywson.modelo.Opcao;
 import br.gleywson.modelo.Pergunta;
 import br.gleywson.modelo.dao.OpcaoFacade;
 import br.gleywson.modelo.dao.PerguntaFacade;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -16,6 +17,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.primefaces.event.DragDropEvent;
+import org.primefaces.model.DualListModel;
+import org.primefaces.model.chart.PieChartModel;
 
 /**
  *
@@ -23,22 +26,37 @@ import org.primefaces.event.DragDropEvent;
  */
 @ManagedBean
 @ViewScoped
-public class AnaliseController {
+public class AnaliseController implements Serializable {
 
     private Pergunta pergunta;
     private Opcao opcao;
-    @EJB
-    private PerguntaFacade perguntaFacade;
+
     @EJB
     private OpcaoFacade opcaoFacade;
-    
-    private List<Opcao> variaveisDisponiveis;
-    private List<Opcao> variaveisAnalisadas;
-    
+
+//    Trabalhando com picklist
+    private DualListModel<Opcao> variaveis;
+    private final PieChartModel graficoEmpatia = new PieChartModel();
+
     @PostConstruct
     public void init() {
-        variaveisDisponiveis = opcaoFacade.getVariaveisCategoricas();
-        variaveisAnalisadas = new ArrayList<Opcao>();
+        List<Opcao> variaveisDisponiveis = opcaoFacade.getVariaveisCategoricas();
+        List<Opcao> variaveisSelecionadas = new ArrayList<Opcao>();
+        variaveis = new DualListModel<Opcao>(variaveisDisponiveis, variaveisSelecionadas);
+    }
+
+    private void createGraficosEmpatia() {
+        List<Object[]> dados = respostaFacade.getTotalEscalaEmpatia(1L);
+
+        graficoEmpatia.setTitle("Escala de Fantasia");
+        graficoEmpatia.setLegendPosition("s");
+        graficoEmpatia.setFill(false);
+        graficoEmpatia.setShowDataLabels(true);
+
+        for (Object[] dado : dados) {
+            graficoEmpatia.set(dado[0].toString(), Integer.parseInt(dado[1].toString()));
+        }
+
     }
 
     public Pergunta getPergunta() {
@@ -57,27 +75,21 @@ public class AnaliseController {
         this.opcao = opcao;
     }
 
-    public List<Opcao> getVariaveisDisponiveis() {
-        return variaveisDisponiveis;
+    public DualListModel<Opcao> getVariaveis() {
+        return variaveis;
     }
 
-    public void setVariaveisDisponiveis(List<Opcao> variaveisDisponiveis) {
-        this.variaveisDisponiveis = variaveisDisponiveis;
+    public void setVariaveis(DualListModel<Opcao> variaveis) {
+        this.variaveis = variaveis;
     }
 
-    public List<Opcao> getVariaveisAnalisadas() {
-        return variaveisAnalisadas;
+    public void analisar() {
+        System.out.println(variaveis.getTarget());
+        createGraficosEmpatia();
     }
 
-    public void setVariaveisAnalisadas(List<Opcao> variaveisAnalisadas) {
-        this.variaveisAnalisadas = variaveisAnalisadas;
+    public PieChartModel getGraficoEmpatia() {
+        return graficoEmpatia;
     }
-    
-    public void onCarDrop(DragDropEvent ddEvent) {
-        Opcao opcao = ((Opcao) ddEvent.getData());
-  
-        variaveisAnalisadas.add(opcao);
-        variaveisDisponiveis.remove(opcao);
-    }
-    
+
 }

@@ -8,13 +8,6 @@
     <ui:define name="title">Misc</ui:define>
 
     <ui:define name="content">
-        <script type="text/javascript">
-            function handleDrop(event, ui) {
-                var droppedCar = ui.draggable;
-
-                droppedCar.fadeOut('fast');
-            }
-        </script>
         <h:form>
             <div class="ui-g ui-fluid">
                 <div class="ui-g-12 ui-lg-6">
@@ -23,42 +16,31 @@
                         <p:messages autoUpdate="true" closable="true" />
                         <h1>Análise aqui</h1>
 
-                        <p:fieldset legend="Variáveis disponíveis">
-                            <p:dataTable value="#{analiseController.variaveisDisponiveis}" var="variavel" id="disponiveis">
-                                <p:column style="width:20px">
-                                    <h:outputText id="dragIcon" styleClass="ui-icon pi pi-plus" />
-                                    <p:draggable for="dragIcon" revert="true" helper="clone"/>
-                                </p:column>
-                                <p:column headerText="Pergunta">
-                                    <h:outputText value="#{variavel.pergunta.descricao}"/>
-                                </p:column>
-                                <p:column headerText="Variável">
-                                    <h:outputText value="#{variavel.descricao}"/>
-                                </p:column>
-                            </p:dataTable>
-                        </p:fieldset>
+                        <p:pickList id="PojoPickList" value="#{analiseController.variaveis}" var="variavel" effect="bounce"
+                                    itemValue="#{variavel}" itemLabel="#{variavel.descricao}" showSourceControls="true" showTargetControls="true" showCheckbox="true"
+                                    showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" converter="opcaoConverter" responsive="true">
 
+                            <f:facet name="sourceCaption">Disponíveis</f:facet>
+                            <f:facet name="targetCaption">Selecionadas</f:facet>
+
+
+                            <p:column style="width:15%">
+                                <h:outputText value="#{variavel.pergunta.descricao}"/>
+                            </p:column>
+
+                            <p:column style="width:85%;">
+                                <h:outputText value="#{variavel.descricao}" />
+                            </p:column>
+                        </p:pickList>
+                        <p:commandButton value="Testar" action="#{analiseController.analisar()}"/>
                     </div>
                 </div>
                 <div class="ui-g-12 ui-lg-6">
-                    <p:outputPanel id="areaSelecao">
-                        <p:fieldset legend="Variáveis analisadas">
-                            <h:outputText value="!!!Arraste aqui!!!" rendered="#{empty analiseController.variaveisAnalisadas}" style="font-size:24px;" />
-                            <p:dataTable id="selecionados" value="#{analiseController.variaveisAnalisadas}" var="variavel"
-                                         rendered="#{not empty analiseController.variaveisAnalisadas}">
-                                <p:column headerText="Pergunta">
-                                    <h:outputText value="#{variavel.pergunta.descricao}"/>
-                                </p:column>
-                                <p:column headerText="Variável">
-                                    <h:outputText value="#{variavel.descricao}"/>
-                                </p:column>
-                            </p:dataTable>
-                        </p:fieldset>
-                    </p:outputPanel>
+                    <div class="card card-w-title">
+                        Gráfico aqui
+                    </div>
                 </div>
-                <p:droppable for="selecionados" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="disponiveis" onDrop="handleDrop">
-                    <p:ajax listener="#{analiseController.onCarDrop}" update="areaSelecao disponiveis" />
-                </p:droppable>
+
             </div>
 
         </h:form>    
