@@ -6,6 +6,8 @@
 package br.gleywson.modelo.dao;
 
 import br.gleywson.modelo.Opcao;
+import br.gleywson.modelo.Tipo;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -26,6 +28,11 @@ public class OpcaoFacade extends AbstractFacade<Opcao> {
 
     public OpcaoFacade() {
         super(Opcao.class);
+    }
+    
+    public List<Opcao> getVariaveisCategoricas() {
+        return getEntityManager().createQuery("SELECT o FROM Pergunta AS p, Opcao AS o WHERE o.pergunta = p AND p.tipo = :tipo")
+                .setParameter("tipo", Tipo.NORMAL).getResultList();
     }
     
 }

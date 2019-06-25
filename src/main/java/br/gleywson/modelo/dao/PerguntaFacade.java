@@ -6,6 +6,8 @@
 package br.gleywson.modelo.dao;
 
 import br.gleywson.modelo.Pergunta;
+import br.gleywson.modelo.Tipo;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -26,6 +28,11 @@ public class PerguntaFacade extends AbstractFacade<Pergunta> {
 
     public PerguntaFacade() {
         super(Pergunta.class);
+    }
+    
+    public List<Pergunta> getVariaveisCategoricas() {
+         return getEntityManager().createQuery("SELECT p FROM Pergunta AS p WHERE p.tipo = :tipo", Pergunta.class)
+                .setParameter("tipo", Tipo.NORMAL).getResultList();
     }
     
 }
