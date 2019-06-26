@@ -14,7 +14,7 @@
                     <!-- Left colum -->
                     <div class="card card-w-title">
                         <p:messages autoUpdate="true" closable="true" />
-                        <h1>Análise aqui</h1>
+                        <h1>Variáveis Categóricas</h1>
 
                         <p:pickList id="PojoPickList" value="#{analiseController.variaveis}" var="variavel" effect="bounce"
                                     itemValue="#{variavel}" itemLabel="#{variavel.descricao}" showSourceControls="true" showTargetControls="true" showCheckbox="true"
@@ -32,13 +32,13 @@
                                 <h:outputText value="#{variavel.descricao}" />
                             </p:column>
                         </p:pickList>
-                        <p:commandButton value="Testar" action="#{analiseController.analisar()}" update="pie"/>
+                        <p:commandButton value="Gerar análise" action="#{analiseController.analisar()}" update="pie"/>
                     </div>
                 </div>
                 <div class="ui-g-12 ui-lg-6">
                     <div class="card card-w-title">
-                        Gráfico aqui
-                        <p:chart id="pie" type="pie" model="#{analiseController.graficoEmpatia}" />
+                        <h1>Gráfico de Empatia</h1>
+                        <p:chart id="pie" type="pie" model="#{analiseController.graficoEmpatia}" responsive="true" style="height: 500px"/>
                     </div>
                     <div class="card"> 
 
