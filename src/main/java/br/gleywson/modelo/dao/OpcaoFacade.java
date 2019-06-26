@@ -10,6 +10,7 @@ import br.gleywson.modelo.Tipo;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -29,10 +30,55 @@ public class OpcaoFacade extends AbstractFacade<Opcao> {
     public OpcaoFacade() {
         super(Opcao.class);
     }
-    
+
     public List<Opcao> getVariaveisCategoricas() {
         return getEntityManager().createQuery("SELECT o FROM Pergunta AS p, Opcao AS o WHERE o.pergunta = p AND p.tipo = :tipo")
                 .setParameter("tipo", Tipo.NORMAL).getResultList();
     }
-    
+
+    public List<Object[]> getEmpatiaPorVariavelCategoria(List<Opcao> lista) {
+
+        String sql = "SELECT CASE p.qualificador \n"
+                + "         WHEN 'PT' THEN 'Escala de Tomada de Perspectiva' \n"
+                + "         WHEN 'FS' THEN 'Escala de Fantasia' \n"
+                + "         WHEN 'EC' THEN 'Escala de Consideração Empática' \n"
+                + "         WHEN 'PD' THEN 'Escala de Angústia Pessoal' \n"
+                + "         ELSE 'Escala de Fantasia' \n"
+                + "       END escala, \n"
+                + "       Sum(o.peso) \n"
+                + "FROM   avaliacao av, \n"
+                + "       pesquisa pes, \n"
+                + "       resposta r, \n"
+                + "       pergunta p, \n"
+                + "       opcao o \n"
+                + "WHERE  pes.id = av.pesquisa_id \n"
+                + "       AND r.avaliacao_id = av.id \n"
+                + "       AND r.pergunta_id = p.id \n"
+                + "       AND r.opcao_id = o.id \n"
+                + "       AND p.tipo = 'AUTOMATICO' \n";
+
+        // + 
+        for (Opcao opcao : lista) {
+            sql += "AND av.id IN (SELECT av.id \n"
+                    + "                     FROM   avaliacao av, \n"
+                    + "                            pesquisa pes, \n"
+                    + "                            resposta r, \n"
+                    + "                            pergunta p, \n"
+                    + "                            opcao o \n"
+                    + "                     WHERE  pes.id = av.pesquisa_id \n"
+                    + "                            AND r.avaliacao_id = av.id \n"
+                    + "                            AND r.pergunta_id = p.id \n"
+                    + "                            AND r.opcao_id = o.id \n"
+                    + "                            AND o.id = "+ opcao.getId() +") ";
+        }
+
+        sql += "GROUP  BY qualificador ";
+
+        Query query = getEntityManager().createNativeQuery(sql);
+
+        List<Object[]> resultado = query.getResultList();
+        
+        return resultado;
+    }
+
 }

@@ -81,7 +81,7 @@ public class DashBoardController implements Serializable {
     private void createGraficosEmpatia() {
         List<Object[]> dados = respostaFacade.getTotalEscalaEmpatia(1L);
 
-        graficoEmpatia.setTitle("Escala de Fantasia");
+        graficoEmpatia.setTitle("Escala de Empatia");
         graficoEmpatia.setLegendPosition("s");
         graficoEmpatia.setFill(false);
         graficoEmpatia.setShowDataLabels(true);

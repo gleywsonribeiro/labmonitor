@@ -43,18 +43,28 @@ public class AnaliseController implements Serializable {
         List<Opcao> variaveisDisponiveis = opcaoFacade.getVariaveisCategoricas();
         List<Opcao> variaveisSelecionadas = new ArrayList<Opcao>();
         variaveis = new DualListModel<Opcao>(variaveisDisponiveis, variaveisSelecionadas);
-    }
-
-    private void createGraficosEmpatia() {
-//        List<Object[]> dados = respostaFacade.getTotalEscalaEmpatia(1L);
-
-        graficoEmpatia.setTitle("Escala de Fantasia");
+        graficoEmpatia.setTitle("Escala de Empatia");
         graficoEmpatia.setLegendPosition("s");
         graficoEmpatia.setFill(false);
         graficoEmpatia.setShowDataLabels(true);
+        graficoEmpatia.set("categoria", 100);
+        
+    }
 
+    private void createGraficosEmpatia() {
+        List<Object[]> dados = opcaoFacade.getEmpatiaPorVariavelCategoria(variaveis.getTarget());
+
+        graficoEmpatia.setTitle("Escala de Empatia");
+        graficoEmpatia.setLegendPosition("s");
+        graficoEmpatia.setFill(false);
+        graficoEmpatia.setShowDataLabels(true);
+        graficoEmpatia.clear();
         for (Object[] dado : dados) {
             graficoEmpatia.set(dado[0].toString(), Integer.parseInt(dado[1].toString()));
+        }
+        
+        for (Object[] o : dados) {
+            System.out.println(o[0] + " -> " + o[1]);
         }
 
     }
@@ -84,7 +94,6 @@ public class AnaliseController implements Serializable {
     }
 
     public void analisar() {
-        System.out.println(variaveis.getTarget());
         createGraficosEmpatia();
     }
 

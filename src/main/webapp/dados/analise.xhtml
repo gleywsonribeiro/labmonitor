@@ -32,12 +32,16 @@
                                 <h:outputText value="#{variavel.descricao}" />
                             </p:column>
                         </p:pickList>
-                        <p:commandButton value="Testar" action="#{analiseController.analisar()}"/>
+                        <p:commandButton value="Testar" action="#{analiseController.analisar()}" update="pie"/>
                     </div>
                 </div>
                 <div class="ui-g-12 ui-lg-6">
                     <div class="card card-w-title">
                         Gráfico aqui
+                        <p:chart id="pie" type="pie" model="#{analiseController.graficoEmpatia}" />
+                    </div>
+                    <div class="card"> 
+
                     </div>
                 </div>
 
