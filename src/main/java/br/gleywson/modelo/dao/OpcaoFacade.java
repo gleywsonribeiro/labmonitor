@@ -56,9 +56,7 @@ public class OpcaoFacade extends AbstractFacade<Opcao> {
                 + "       AND r.pergunta_id = p.id \n"
                 + "       AND r.opcao_id = o.id \n"
                 + "       AND p.tipo = 'AUTOMATICO' \n";
-
-        // + 
-        for (Opcao opcao : lista) {
+       
             sql += "AND av.id IN (SELECT av.id \n"
                     + "                     FROM   avaliacao av, \n"
                     + "                            pesquisa pes, \n"
@@ -68,10 +66,22 @@ public class OpcaoFacade extends AbstractFacade<Opcao> {
                     + "                     WHERE  pes.id = av.pesquisa_id \n"
                     + "                            AND r.avaliacao_id = av.id \n"
                     + "                            AND r.pergunta_id = p.id \n"
-                    + "                            AND r.opcao_id = o.id \n"
-                    + "                            AND o.id = "+ opcao.getId() +") ";
-        }
-
+                    + "                            AND r.opcao_id = o.id \n";
+                    
+            if(!lista.isEmpty()) {
+                StringBuilder builder = new StringBuilder();
+                builder.append("(");
+                
+                for (int i = 0; i < lista.size() - 1; i++) {
+                    builder.append(lista.get(i).getId()).append(",");
+                }
+                builder.append(lista.get(0));
+                sql += "AND o.id in " + builder.toString() + ""
+            }
+            
+                   sql +=") ";
+    
+//+ "                            AND o.id in"+ opcao.getId() 
         sql += "GROUP  BY qualificador ";
 
         Query query = getEntityManager().createNativeQuery(sql);
