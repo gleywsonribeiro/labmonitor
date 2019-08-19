@@ -18,33 +18,66 @@
                 color: #757575;
                 border-color: #bdbdbd;
             }
+
+            .texto {
+                font-weight: 500;
+                color: #ffffff;
+                text-align: center;
+                border: 1px solid #fafafa;
+                height: 100px;
+            }
+
+            .solicitado {
+                background-color: #2D68CD;
+            }
+
+            .medicina {
+                background-color: #387236;
+            }
+
+            .pendente {
+                background-color: #F35F42;
+                color: #424242;
+            }
+
+            .urgente {
+                background-color: #DA2D2D;
+            }
+
+            .sepse {
+                background-color: #8B65F3;
+            }
         </style>
+
     </ui:define>
 
     <ui:define name="content">
-        <div class="ui-g ui-fluid">
-            <p:growl autoUpdate="true"/>
-            <div class="ui-g-12 ui-md-6">
-                <div class="card">
-                    <h1 class="centerText">Análise de Dados</h1>
-                </div>
 
-                <ui:repeat value="#{dashBoardController.graficos}" var="grafico">
-                    <div class="card"> 
-                        <p:chart id="pie" type="pie" model="#{grafico}" responsive="true" style="height: 500px"/>
-                    </div>
-                </ui:repeat>
+        <p:growl autoUpdate="true"/>
+        <div class="ui-g">
+            <div class="ui-g-12 ui-md-6 ui-lg-2 texto solicitado">
+                <h1>30</h1>
+                Solicitados
             </div>
-
-            <div class="ui-g-12 ui-md-6">
-                <div class="card">
-                    <h1 class="centerText">Análise de Empatia</h1>
-                </div>
-                <div class="card"> 
-                    <p:chart id="pie" type="pie" model="#{dashBoardController.graficoEmpatia}" responsive="true" style="height: 500px"/>
-                </div>
+            <div class="ui-g-12 ui-md-6 ui-lg-2 texto medicina">
+                <h1>80</h1>
+                Medicina
+            </div>
+            <div class="ui-g-12 ui-md-6 ui-lg-2 texto pendente">
+                <h1>120</h1>
+                Pendentes
+            </div>
+            <div class="ui-g-12 ui-md-6 ui-lg-2 texto urgente">
+                <h1>10</h1>
+                Urgentes
+            </div>
+            <div class="ui-g-12 ui-md-6 ui-lg-2 texto sepse">
+                <h1>5</h1>
+                Sepse
             </div>
         </div>
+
+
     </ui:define>
 
 </ui:composition>
