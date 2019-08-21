@@ -16,19 +16,21 @@
                     <div class="card card-w-title">
                         <p:messages autoUpdate="true" closable="true" />
                         <h1>Medicina</h1>
-                        
-                        <p:dataTable >
+
+                        <p:dataTable value="#{pedidoController.pedidosMedicina}" var="pedido">
                             <f:facet name="header">
                                 Exames Pendentes
                             </f:facet>
                             <p:column headerText="Data">
-                                
+                                <h:outputText value="#{pedido.dataPedido}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                                </h:outputText>
                             </p:column>
                             <p:column headerText="Pedido">
-                                
+                                <h:outputText value="#{pedido.codigo}"/>
                             </p:column>
                             <p:column headerText="Setor">
-                                
+                                <h:outputText value="#{pedido.setor}"/>
                             </p:column>
                         </p:dataTable>
                     </div>
