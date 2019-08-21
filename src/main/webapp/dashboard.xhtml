@@ -37,7 +37,7 @@
 
             .pendente {
                 background-color: #F35F42;
-                color: #424242;
+                /*color: #424242;*/
             }
 
             .urgente {
@@ -62,25 +62,33 @@
         <p:growl autoUpdate="true"/>
         <div class="ui-g">
             <div class="ui-g-12 ui-md-6 ui-lg-2 texto solicitado">
-                <p:link outcome="/lab/cadastro">
-                    <h1>30</h1>
+                <p:link outcome="/lab/solicitado">
+                    <h1>250</h1>
                 </p:link>
                 Solicitados
             </div>
             <div class="ui-g-12 ui-md-6 ui-lg-2 texto medicina">
-                <h1>80</h1>
+                <p:link outcome="/lab/medicina">
+                    <h1>38</h1>
+                </p:link>
                 Medicina
             </div>
             <div class="ui-g-12 ui-md-6 ui-lg-2 texto pendente">
-                <h1>120</h1>
+                <p:link outcome="/lab/pendente">
+                    <h1>150</h1>
+                </p:link>
                 Pendentes
             </div>
             <div class="ui-g-12 ui-md-6 ui-lg-2 texto urgente">
-                <h1>10</h1>
+                <p:link outcome="/lab/urgente">
+                    <h1>20</h1>
+                </p:link>
                 Urgentes
             </div>
             <div class="ui-g-12 ui-md-6 ui-lg-2 texto sepse">
-                <h1>5</h1>
+                <p:link outcome="/lab/sepse">
+                    <h1>5</h1>
+                </p:link>
                 Sepse
             </div>
         </div>
