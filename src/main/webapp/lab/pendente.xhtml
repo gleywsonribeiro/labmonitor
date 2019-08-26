@@ -15,24 +15,24 @@
                     <!-- Left colum -->
                     <div class="card card-w-title">
                         <p:messages autoUpdate="true" closable="true" />
-                        <h1>Cadastro de Pesquisa</h1>
-                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank form-group">
-                            <h:panelGroup styleClass="md-inputfield">
-                                <p:inputText id="descricao" value="#{pesquisaController.pesquisa.descricao}" required="true" requiredMessage="Descrição da pesquisa é necessária"/>
-                                <label>Descrição</label>
-                            </h:panelGroup>
-                            <h:panelGroup styleClass="md-inputfield">
-                                <p:inputTextarea value="#{pesquisaController.pesquisa.resumo}"/>
-                                <label>Resumo</label>
-                            </h:panelGroup>
-                            <h:panelGroup>
-                                <h1>Ativo</h1>
-                                <p:inputSwitch value="#{pesquisaController.pesquisa.ativo}"/>
-                            </h:panelGroup>
-                        </p:panelGrid>
+                        <h1>Pendentes</h1>
 
-                        <p:commandButton id="btnSavePesquisa" value="Salvar" icon="ui-icon-disk" action="#{pesquisaController.salvar()}" update="@form" />
-
+                        <p:dataTable value="#{pedidoController.pedidosPendentes}" var="pedido">
+                            <f:facet name="header">
+                                Exames Pendentes
+                            </f:facet>
+                            <p:column headerText="Data">
+                                <h:outputText value="#{pedido.dataPedido}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="Pedido">
+                                <h:outputText value="#{pedido.codigo}"/>
+                            </p:column>
+                            <p:column headerText="Setor">
+                                <h:outputText value="#{pedido.setor}"/>
+                            </p:column>
+                        </p:dataTable>
                     </div>
                 </div>
             </div>

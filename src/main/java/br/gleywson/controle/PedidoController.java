@@ -24,11 +24,13 @@ public class PedidoController {
    private List<Pedido> pedidosMedicina;
    private List<Pedido> pedidoSepse;
    private List<Pedido> pedidosUrgentes;
+   private List<Pedido> pedidosPendentes;
 
     public PedidoController() {
         pedidosMedicina = dao.getPedidosMedicina();
         pedidoSepse = dao.getPedidosSepse();
         pedidosUrgentes = dao.getPedidosUrgentes();
+        pedidosPendentes = dao.getPedidosPendentes();
     }
 
     public List<Pedido> getPedidosMedicina() {
@@ -42,6 +44,12 @@ public class PedidoController {
     public List<Pedido> getPedidosUrgentes() {
         return pedidosUrgentes;
     }
+
+    public List<Pedido> getPedidosPendentes() {
+        return pedidosPendentes;
+    }
+    
+    
     
     
 }
