@@ -60,38 +60,41 @@
     <ui:define name="content">
 
         <p:growl autoUpdate="true"/>
-        <div class="ui-g">
-<!--            <div class="ui-g-12 ui-md-6 ui-lg-2 texto solicitado">
-                <p:link outcome="/lab/solicitado">
-                    <h1>250</h1>
-                </p:link>
-                Solicitados
-            </div>-->
-            <div class="ui-g-12 ui-md-6 ui-lg-2 texto medicina">
-                <p:link outcome="/lab/medicina">
-                    <h1>#{pedidoController.pedidosMedicina.size()}</h1>
-                </p:link>
-                Medicina
+        <h:form id="dashboard">
+            <div class="ui-g">
+                <!--            <div class="ui-g-12 ui-md-6 ui-lg-2 texto solicitado">
+                                <p:link outcome="/lab/solicitado">
+                                    <h1>250</h1>
+                                </p:link>
+                                Solicitados
+                            </div>-->
+                <div class="ui-g-12 ui-md-6 ui-lg-2 texto medicina">
+                    <p:link outcome="/lab/medicina">
+                        <h1>#{pedidoController.pedidosMedicina.size()}</h1>
+                    </p:link>
+                    Medicina
+                </div>
+                <div class="ui-g-12 ui-md-6 ui-lg-2 texto pendente">
+                    <p:link outcome="/lab/pendente">
+                        <h1>#{pedidoController.pedidosPendentes.size()}</h1>
+                    </p:link>
+                    Pendentes
+                </div>
+                <div class="ui-g-12 ui-md-6 ui-lg-2 texto urgente">
+                    <p:link outcome="/lab/urgente">
+                        <h1>#{pedidoController.pedidosUrgentes.size()}</h1>
+                    </p:link>
+                    Urgentes
+                </div>
+                <div class="ui-g-12 ui-md-6 ui-lg-2 texto sepse">
+                    <p:link outcome="/lab/sepse">
+                        <h1>#{pedidoController.pedidoSepse.size()}</h1>
+                    </p:link>
+                    Sepse
+                </div>
             </div>
-            <div class="ui-g-12 ui-md-6 ui-lg-2 texto pendente">
-                <p:link outcome="/lab/pendente">
-                    <h1>#{pedidoController.pedidosPendentes.size()}</h1>
-                </p:link>
-                Pendentes
-            </div>
-            <div class="ui-g-12 ui-md-6 ui-lg-2 texto urgente">
-                <p:link outcome="/lab/urgente">
-                    <h1>#{pedidoController.pedidosUrgentes.size()}</h1>
-                </p:link>
-                Urgentes
-            </div>
-            <div class="ui-g-12 ui-md-6 ui-lg-2 texto sepse">
-                <p:link outcome="/lab/sepse">
-                    <h1>#{pedidoController.pedidoSepse.size()}</h1>
-                </p:link>
-                Sepse
-            </div>
-        </div>
+            <p:poll interval="30" update="dashboard" />
+        </h:form>
 
     </ui:define>
 
