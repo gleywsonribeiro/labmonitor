@@ -12,9 +12,9 @@
             <to-view-id>/login.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
-    <lifecycle>
+<!--    <lifecycle>
         <phase-listener>br.gleywson.modelo.autorizacao.Autorizacao</phase-listener>
-    </lifecycle>
+    </lifecycle>-->
     
     <component>
         <component-type>org.primefaces.component.UltimaMenu</component-type>
